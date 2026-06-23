@@ -176,7 +176,7 @@ export default function Hero() {
               mouseX.set(0);
               mouseY.set(0);
             }}
-            className="relative -mt-16 w-full rounded-[2rem] border border-white/15 bg-white/[0.075] p-5 shadow-[0_30px_100px_rgba(0,0,0,0.55)] backdrop-blur-2xl md:absolute md:bottom-4 md:right-0 md:mt-0 md:w-[360px]"
+            className="relative mt-6 w-full rounded-[2rem] border border-white/15 bg-white/[0.075] p-5 shadow-[0_30px_100px_rgba(0,0,0,0.55)] backdrop-blur-2xl md:absolute md:bottom-4 md:right-0 md:mt-0 md:w-[360px]"
           >
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div className="flex items-center gap-2 text-sm text-emerald-300"><span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.9)]" /> {profile.status}</div>
