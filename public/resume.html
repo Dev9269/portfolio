@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jainam H. Maru — Resume</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #050505;
+      color: #EAEAEA;
+      line-height: 1.6;
+      padding: 2rem;
+    }
+    .container { max-width: 900px; margin: 0 auto; background: #0B0B0B; border-radius: 2rem; padding: 3rem; border: 1px solid rgba(255,255,255,0.08); }
+    .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 2rem; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .header-left h1 { font-size: 2.5rem; font-weight: 700; color: #fff; letter-spacing: -0.04em; }
+    .header-left .tagline { color: #3B82F6; font-size: 0.95rem; margin-top: 0.3rem; font-weight: 500; }
+    .header-left .sub { color: #A1A1AA; font-size: 0.85rem; margin-top: 0.2rem; }
+    .header-right { text-align: right; font-size: 0.85rem; color: #A1A1AA; }
+    .header-photo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(255,255,255,0.1); margin-bottom: 0.5rem; }
+    .header-right a { color: #3B82F6; text-decoration: none; }
+    .header-right a:hover { text-decoration: underline; }
+    .header-right div { margin-bottom: 0.3rem; }
+    .section { margin-bottom: 2rem; }
+    .section-title { font-size: 0.75rem; font-weight: 600; color: #3B82F6; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .summary-text { color: #D4D4D8; font-size: 0.95rem; line-height: 1.7; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
+    .exp-item { margin-bottom: 1.2rem; }
+    .exp-item h3 { font-size: 1rem; font-weight: 600; color: #fff; }
+    .exp-item .meta { font-size: 0.8rem; color: #3B82F6; margin-top: 0.1rem; }
+    .exp-item p { font-size: 0.88rem; color: #A1A1AA; margin-top: 0.3rem; }
+    .exp-item ul { margin-top: 0.3rem; padding-left: 1.2rem; }
+    .exp-item ul li { font-size: 0.85rem; color: #A1A1AA; margin-bottom: 0.15rem; }
+    .badge { display: inline-block; background: rgba(59,130,246,0.12); color: #93B4FF; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 999px; margin: 0.15rem; }
+    .skill-cat { margin-bottom: 0.8rem; }
+    .skill-cat h4 { font-size: 0.85rem; font-weight: 600; color: #fff; margin-bottom: 0.3rem; }
+    .project-item { margin-bottom: 1.2rem; }
+    .project-item h3 { font-size: 1rem; font-weight: 600; color: #fff; }
+    .project-item .meta { font-size: 0.8rem; color: #3B82F6; }
+    .project-item p { font-size: 0.88rem; color: #A1A1AA; margin-top: 0.2rem; }
+    .project-item ul { margin-top: 0.2rem; padding-left: 1.2rem; }
+    .project-item ul li { font-size: 0.85rem; color: #A1A1AA; }
+    .print-btn { display: inline-block; margin-top: 1.5rem; padding: 0.7rem 2rem; background: #fff; color: #000; border: none; border-radius: 999px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+    .print-btn:hover { opacity: 0.85; }
+    @media print {
+      body { background: #fff; padding: 0; color: #000; }
+      .container { background: #fff; border: none; border-radius: 0; padding: 1.5rem; box-shadow: none; }
+      .header-left h1 { color: #000; }
+      .section-title { color: #3B82F6; }
+      .summary-text, .exp-item p, .project-item p, .exp-item ul li, .project-item ul li { color: #444; }
+      .badge { background: #eef2ff; color: #4f46e5; }
+      .print-btn { display: none; }
+      .header-right a { color: #2563eb; }
+      .header-photo { border-color: #ddd; }
+      .exp-item h3, .project-item h3, .skill-cat h4 { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-left">
+        <h1>Jainam H. Maru</h1>
+        <div class="tagline">Cybersecurity Engineer · AI Builder · OS Creator</div>
+        <div class="sub">B.Tech Cybersecurity — Parul University</div>
+      </div>
+      <div class="header-right">
+        <img src="profile.png" alt="Jainam H. Maru" class="header-photo" />
+        <div>Jainammaru567000@gmail.com</div>
+        <div><a href="https://github.com/Dev9269" target="_blank">github.com/Dev9269</a></div>
+        <div><a href="https://www.linkedin.com/in/jainam-maru-007803386" target="_blank">linkedin.com/in/jainam-maru</a></div>
+        <div>India</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Professional Summary</div>
+      <p class="summary-text">
+        B.Tech Cybersecurity student at Parul University with deep expertise in ethical hacking, penetration testing, AI/ML security applications, and operating system development. Creator of EduOS — a Debian-based educational OS — and builder of multiple security tools including SSH honeypots, password cracking engines, and CTF platforms. Active CTF competitor (E-Rakshak CTF — 39th / 157 teams) and national hackathon participant. Passionate about building technology that improves education, security, and digital infrastructure.
+      </p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Education</div>
+      <div class="exp-item">
+        <h3>B.Tech in Cybersecurity</h3>
+        <div class="meta">Parul University · 2023 – Present</div>
+        <p>Specialized in cybersecurity, ethical hacking, and secure systems. Active participant in CTF competitions, hackathons, and security research labs.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Featured Projects</div>
+      <div class="project-item">
+        <h3>EduOS</h3>
+        <div class="meta">Debian · Python · Linux Kernel</div>
+        <p>A Debian-based educational operating system for schools and universities featuring a Windows-like interface, integrated examination environment, cybersecurity labs, and developer utilities.</p>
+      </div>
+      <div class="project-item">
+        <h3>SSH Honeypot</h3>
+        <div class="meta">Python · Paramiko · Network Security</div>
+        <p>Production-ready SSH honeypot that captures attack patterns, logs credential attempts, and simulates a legitimate OpenSSH server. Multi-threaded with JSON logging and IP filtering.</p>
+        <ul><li><a href="https://github.com/Dev9269/ssh-honeypot" style="color:#3B82F6;">github.com/Dev9269/ssh-honeypot</a></li></ul>
+      </div>
+      <div class="project-item">
+        <h3>Password Cracker Toolkit</h3>
+        <div class="meta">Python · Hashcat · Multi-threading</div>
+        <p>Modular password security toolkit supporting dictionary, brute-force, hybrid, and rule-based attacks with GPU acceleration. 28 unit tests, 100% pass rate, 90% code coverage.</p>
+        <ul><li><a href="https://github.com/Dev9269/password-cracker-toolkit" style="color:#3B82F6;">github.com/Dev9269/password-cracker-toolkit</a></li></ul>
+      </div>
+      <div class="project-item">
+        <h3>CyberLab Pro</h3>
+        <div class="meta">React · Node.js · Express · Tailwind CSS</div>
+        <p>Professional-grade CTF learning environment with interactive challenges, real-time leaderboards, scoring, and progressive cybersecurity lessons. Full-stack with cyberpunk aesthetic.</p>
+        <ul><li><a href="https://github.com/Dev9269/CyberLab-Pro" style="color:#3B82F6;">github.com/Dev9269/CyberLab-Pro</a></li></ul>
+      </div>
+      <div class="project-item">
+        <h3>AI Chatbot</h3>
+        <div class="meta">JavaScript · Python · Groq AI · Unsplash API</div>
+        <p>AI chatbot powered by Groq Llama 3.3 70B with image search, dark/light mode, and persistent chat history. Clean responsive UI with Python FastAPI backend.</p>
+        <ul><li><a href="https://github.com/Dev9269/ai-chatbot" style="color:#3B82F6;">github.com/Dev9269/ai-chatbot</a></li></ul>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="section">
+        <div class="section-title">Technical Skills</div>
+        <div class="skill-cat">
+          <h4>Programming</h4>
+          <span class="badge">Python</span>
+          <span class="badge">JavaScript</span>
+          <span class="badge">C/C++</span>
+          <span class="badge">Shell/Bash</span>
+        </div>
+        <div class="skill-cat">
+          <h4>Cybersecurity</h4>
+          <span class="badge">Kali Linux</span>
+          <span class="badge">Burp Suite</span>
+          <span class="badge">Wireshark</span>
+          <span class="badge">Nmap</span>
+          <span class="badge">Metasploit</span>
+          <span class="badge">OWASP Juice Shop</span>
+        </div>
+        <div class="skill-cat">
+          <h4>AI & Data</h4>
+          <span class="badge">Machine Learning</span>
+          <span class="badge">FastAPI</span>
+          <span class="badge">Streamlit</span>
+          <span class="badge">Groq AI</span>
+        </div>
+        <div class="skill-cat">
+          <h4>Web & DevOps</h4>
+          <span class="badge">React</span>
+          <span class="badge">Vite</span>
+          <span class="badge">Tailwind CSS</span>
+          <span class="badge">Git/GitHub</span>
+          <span class="badge">Node.js</span>
+        </div>
+        <div class="skill-cat">
+          <h4>Linux & Systems</h4>
+          <span class="badge">Linux Administration</span>
+          <span class="badge">Debian Packaging</span>
+          <span class="badge">OS Development</span>
+          <span class="badge">System Hardening</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Competitions & Achievements</div>
+        <div class="exp-item">
+          <h3>E-Rakshak CTF 2024</h3>
+          <div class="meta">Team Caffeine and Code · 39th Place / 157 Teams</div>
+          <p>Score: 2713 points. National-level CTF covering penetration testing, cryptography, web exploitation, and forensics.</p>
+        </div>
+        <div class="exp-item">
+          <h3>NHAI Innovation Hackathon</h3>
+          <div class="meta">National Participant</div>
+          <p>Built Smart Toilet Maintenance and Monitoring Platform for national highway infrastructure.</p>
+        </div>
+        <div class="exp-item" style="margin-top:1.5rem;">
+          <h3>Certifications</h3>
+          <p style="margin-top:0.3rem;">
+            <span class="badge">Cybersecurity & Ethical Hacking</span>
+            <span class="badge">Linux System Administration</span>
+            <span class="badge">Penetration Testing</span>
+            <span class="badge">Web Application Security (OWASP)</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Interests & Research</div>
+      <span class="badge">Penetration Testing</span>
+      <span class="badge">Vulnerability Assessment</span>
+      <span class="badge">Web Application Security</span>
+      <span class="badge">AI & Machine Learning</span>
+      <span class="badge">OS Development</span>
+      <span class="badge">Cloud Technologies</span>
+      <span class="badge">Open Source</span>
+      <span class="badge">Cryptography</span>
+      <span class="badge">Reverse Engineering</span>
+      <span class="badge">IoT Security</span>
+    </div>
+
+    <div style="text-align:center; margin-top:2rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem;">
+      <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+  </div>
+</body>
+</html>
