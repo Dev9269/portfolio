@@ -20,15 +20,15 @@ export default function Contact() {
 
   return (
     <section id="contact" className="border-t border-white/10 bg-[#080808] px-5 py-28 sm:px-8">
-      <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[1fr_1fr] lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 lg:grid-cols-[0.9fr_1.1fr]">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-120px' }}
         >
           <p className="mb-4 text-sm uppercase tracking-[0.36em] text-accent">Contact</p>
-          <h2 className="text-5xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Let's Build Something Meaningful.</h2>
-          <p className="mt-6 max-w-xl text-lg leading-8 text-text-secondary">
+          <h2 className="text-4xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Let's Build Something Meaningful.</h2>
+          <p className="mt-4 max-w-xl text-base leading-7 text-text-secondary sm:mt-6 sm:text-lg sm:leading-8">
             {contact.intro}
           </p>
           <div className="mt-10 grid gap-3 text-text-secondary">
@@ -88,7 +88,7 @@ export default function Contact() {
             whileHover={{ y: -2 }}
             whileTap={{ scale: 0.95 }}
             type="submit"
-            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-4 font-semibold text-black shadow-[0_0_40px_rgba(255,255,255,0.12)] transition hover:bg-text-primary"
+            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-4 text-sm font-semibold text-black shadow-[0_0_40px_rgba(255,255,255,0.12)] transition hover:bg-text-primary sm:text-base"
           >
             Send Message <Send size={18} />
           </motion.button>

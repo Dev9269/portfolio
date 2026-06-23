@@ -13,10 +13,10 @@ export default function Certifications() {
           className="mb-16 max-w-3xl"
         >
           <p className="mb-4 text-sm uppercase tracking-[0.36em] text-accent">Learning credentials</p>
-          <h2 className="text-5xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Certifications & Learning.</h2>
+          <h2 className="text-4xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Certifications & Learning.</h2>
         </motion.div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {certifications.map((cert, i) => (
             <motion.div
               key={cert.title}

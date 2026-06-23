@@ -35,13 +35,13 @@ export default function About() {
           className="mx-auto max-w-4xl text-center"
         >
           <p className="mb-4 text-sm uppercase tracking-[0.36em] text-accent">About the builder</p>
-          <h2 className="text-5xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">
+          <h2 className="text-4xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">
             Who I Am
           </h2>
-          <p className="mt-8 text-xl leading-9 text-text-secondary">
+          <p className="mt-6 text-base leading-7 text-text-secondary sm:mt-8 sm:text-xl sm:leading-9">
             {about.story}
           </p>
-          <p className="mt-5 text-xl leading-9 text-text-secondary">
+          <p className="mt-4 text-base leading-7 text-text-secondary sm:mt-5 sm:text-xl sm:leading-9">
             {about.detail}
           </p>
         </motion.div>
@@ -51,7 +51,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ delay: 0.15 }}
-          className="mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-px overflow-hidden rounded-[2rem] border border-white/10 bg-white/10 sm:grid-cols-3 lg:grid-cols-6"
+          className="mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-3 lg:grid-cols-6"
         >
           {stats.map((stat) => (
             <div key={stat.label} className="bg-[#080808] p-6 text-center sm:p-8">

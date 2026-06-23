@@ -19,7 +19,7 @@ export default function Goals() {
             className="mb-16 max-w-3xl"
           >
             <p className="mb-4 text-sm uppercase tracking-[0.36em] text-accent">Research domains</p>
-            <h2 className="text-5xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Interests & Research.</h2>
+            <h2 className="text-4xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Interests & Research.</h2>
           </motion.div>
 
           <div className="flex flex-wrap gap-3">
@@ -55,10 +55,10 @@ export default function Goals() {
             className="mb-16 max-w-3xl"
           >
             <p className="mb-4 text-sm uppercase tracking-[0.36em] text-accent">Where I'm headed</p>
-            <h2 className="text-5xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Goals & Vision.</h2>
+            <h2 className="text-4xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Goals & Vision.</h2>
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-[1fr_1fr] lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-[1.15fr_0.85fr]">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
