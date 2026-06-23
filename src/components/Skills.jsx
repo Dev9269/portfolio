@@ -49,7 +49,7 @@ export default function Skills() {
             <h2 className="text-5xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Technical Skills.</h2>
           </motion.div>
 
-          <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+          <div className="grid gap-8 md:grid-cols-[1fr_1fr] lg:grid-cols-[0.75fr_1.25fr]">
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
               {skillGroups.map((group) => (
                 <button

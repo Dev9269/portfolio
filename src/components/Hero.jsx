@@ -108,7 +108,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.18),transparent_34%),radial-gradient(circle_at_18%_22%,rgba(99,102,241,0.16),transparent_30%),linear-gradient(180deg,#050505,#0b0b0b_55%,#050505)]" />
       <div className="absolute left-1/2 top-20 h-[620px] w-[620px] -translate-x-1/2 rounded-full bg-accent/10 blur-[140px]" />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 md:grid-cols-[1.1fr_0.9fr] lg:grid-cols-[1.05fr_0.95fr]">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}

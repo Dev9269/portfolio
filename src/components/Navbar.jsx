@@ -1,5 +1,7 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: 'Home', path: '/' },
@@ -14,6 +16,7 @@ const navLinks = [
 
 export default function Navbar() {
   const { pathname } = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-dark/70 backdrop-blur-2xl">
@@ -27,7 +30,7 @@ export default function Navbar() {
           </Link>
         </motion.div>
 
-        <div className="hidden gap-1 text-sm text-text-secondary md:flex">
+        <div className="hidden items-center gap-1 text-sm text-text-secondary md:flex">
           {navLinks.map((link) => {
             const isActive = pathname === link.path;
             return (
@@ -46,13 +49,61 @@ export default function Navbar() {
           })}
         </div>
 
-        <Link
-          to="/contact"
-          className="rounded-full border border-white/15 px-4 py-2 text-sm text-white transition hover:border-accent hover:bg-white/5"
-        >
-          Start a conversation
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            to="/contact"
+            className="hidden rounded-full border border-white/15 px-4 py-2 text-sm text-white transition hover:border-accent hover:bg-white/5 sm:inline-block"
+          >
+            Start a conversation
+          </Link>
+          <button
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="flex items-center justify-center rounded-full border border-white/15 p-2 text-white transition hover:border-accent md:hidden"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden border-t border-white/10 bg-dark/95 backdrop-blur-2xl md:hidden"
+          >
+            <div className="space-y-1 px-5 py-6">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.path;
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setMenuOpen(false)}
+                    className={`block rounded-2xl px-4 py-3 text-sm transition ${
+                      isActive
+                        ? 'bg-accent/10 text-accent'
+                        : 'text-text-secondary hover:bg-white/5 hover:text-white'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+              <Link
+                to="/contact"
+                onClick={() => setMenuOpen(false)}
+                className="mt-3 block rounded-full border border-white/15 px-4 py-3 text-center text-sm text-white transition hover:border-accent hover:bg-white/5 sm:hidden"
+              >
+                Start a conversation
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

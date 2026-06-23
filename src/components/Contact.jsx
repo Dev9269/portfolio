@@ -20,7 +20,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="border-t border-white/10 bg-[#080808] px-5 py-28 sm:px-8">
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+      <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[1fr_1fr] lg:grid-cols-[0.9fr_1.1fr]">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

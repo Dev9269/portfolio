@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-white/10 bg-dark">
       <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8">
-        <div className="mb-8 grid gap-8 md:grid-cols-3">
+        <div className="mb-8 grid gap-8 sm:grid-cols-2 md:grid-cols-3">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

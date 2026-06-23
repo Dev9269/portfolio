@@ -58,7 +58,7 @@ export default function Goals() {
             <h2 className="text-5xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Goals & Vision.</h2>
           </motion.div>
 
-          <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="grid gap-8 md:grid-cols-[1fr_1fr] lg:grid-cols-[1.15fr_0.85fr]">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}

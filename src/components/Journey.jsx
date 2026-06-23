@@ -19,7 +19,7 @@ export default function Journey() {
             <h2 className="text-5xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Journey.</h2>
           </motion.div>
 
-          <div className="relative grid gap-0 lg:grid-cols-2 lg:gap-16">
+          <div className="relative grid gap-0 md:grid-cols-2 md:gap-10 lg:grid-cols-2 lg:gap-16">
             <div className="relative space-y-6 border-l border-white/10 pl-8">
               {journey.map((item, index) => (
                 <motion.div
@@ -75,7 +75,7 @@ export default function Journey() {
             <h2 className="text-5xl font-semibold tracking-[-0.06em] text-white sm:text-7xl">Hackathons & CTFs.</h2>
           </motion.div>
 
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {competitions.map((comp, i) => (
               <motion.article
                 key={comp.name}

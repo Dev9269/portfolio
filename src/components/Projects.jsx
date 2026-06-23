@@ -29,7 +29,7 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-120px' }}
               transition={{ delay: i * 0.06 }}
-              className="group grid overflow-hidden rounded-[2.25rem] border border-white/10 bg-white/[0.035] shadow-[0_40px_120px_rgba(0,0,0,0.35)] backdrop-blur-xl lg:grid-cols-[0.95fr_1.05fr]"
+              className="group grid overflow-hidden rounded-[2.25rem] border border-white/10 bg-white/[0.035] shadow-[0_40px_120px_rgba(0,0,0,0.35)] backdrop-blur-xl md:grid-cols-[1fr_1fr] lg:grid-cols-[0.95fr_1.05fr]"
             >
               <div className={`relative min-h-[340px] overflow-hidden bg-gradient-to-br ${project.gradient}`}>
                 <div className="absolute inset-6 rounded-[1.7rem] border border-white/10 bg-black/35 p-5 shadow-2xl transition duration-500 group-hover:scale-[1.02]">
