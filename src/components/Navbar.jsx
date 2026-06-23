@@ -14,6 +14,13 @@ const navLinks = [
   { label: 'Contact', path: '/contact' },
 ];
 
+const mobileLinks = [
+  { label: 'Home', path: '/' },
+  { label: 'Projects', path: '/projects' },
+  { label: 'Skills', path: '/skills' },
+  { label: 'Contact', path: '/contact' },
+];
+
 export default function Navbar() {
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -49,7 +56,23 @@ export default function Navbar() {
           })}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 text-xs text-text-secondary md:hidden">
+            {mobileLinks.map((link) => {
+              const isActive = pathname === link.path;
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`rounded-full px-2.5 py-1.5 transition ${
+                    isActive ? 'bg-accent/15 text-accent' : 'hover:text-white'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
           <Link
             to="/contact"
             className="hidden rounded-full border border-white/15 px-4 py-2 text-sm text-white transition hover:border-accent hover:bg-white/5 sm:inline-block"
@@ -59,10 +82,10 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex items-center justify-center rounded-full border border-white/15 p-2 text-white transition hover:border-accent md:hidden"
+            className="flex items-center justify-center rounded-full border border-white/20 bg-white/5 p-2 text-white transition hover:border-accent hover:bg-white/10 md:hidden"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            {menuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
