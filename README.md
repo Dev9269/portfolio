@@ -1,15 +1,17 @@
-# Portfolio Pro - Professional Developer Portfolio
+<div align="center">
 
-<p align="left">
-  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat-square&logo=tailwindcss" />
-  <img src="https://img.shields.io/badge/Framer_Motion-11-0055FF?style=flat-square&logo=framer" />
-  <img src="https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite" />
-  <img src="https://img.shields.io/github/stars/Dev9269/portfolio?style=flat-square&label=Stars" />
-  <img src="https://img.shields.io/github/license/Dev9269/portfolio?style=flat-square" />
-</p>
+# 🌐 Portfolio
+
+[![Stars](https://img.shields.io/github/stars/Dev9269/portfolio?style=flat-square&logo=github&color=gold)](https://github.com/Dev9269/portfolio)
+[![Forks](https://img.shields.io/github/forks/Dev9269/portfolio?style=flat-square&logo=github&color=blue)](https://github.com/Dev9269/portfolio/forks)
+[![License](https://img.shields.io/github/license/Dev9269/portfolio?style=flat-square&color=brightgreen)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat-square)](https://github.com/Dev9269/portfolio/pulls)
 
 A clean, minimal, professional developer portfolio built with React, Tailwind CSS, and Framer Motion.
+
+**Created by** [Jainam Maru](https://github.com/Dev9269)
+
+</div>
 
 ## 🎯 Design Philosophy
 
