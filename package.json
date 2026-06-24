@@ -2,6 +2,14 @@
   "name": "portfolio-pro",
   "private": true,
   "version": "1.0.0",
+  "description": "Professional developer portfolio built with React, Tailwind CSS, and Framer Motion",
+  "keywords": ["portfolio", "developer", "react", "tailwindcss", "framer-motion"],
+  "author": "Jainam Maru",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dev9269/portfolio.git"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
