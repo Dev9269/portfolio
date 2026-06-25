@@ -6,10 +6,13 @@
 [![Forks](https://img.shields.io/github/forks/Dev9269/portfolio?style=flat-square&logo=github&color=blue)](https://github.com/Dev9269/portfolio/forks)
 [![License](https://img.shields.io/github/license/Dev9269/portfolio?style=flat-square&color=brightgreen)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat-square)](https://github.com/Dev9269/portfolio/pulls)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Dev9269.github.io-0891b2?style=flat-square&logo=githubpages&logoColor=white)](https://dev9269.github.io/portfolio/)
 
 A clean, minimal, professional developer portfolio built with React, Tailwind CSS, and Framer Motion.
 
 **Created by** [Jainam Maru](https://github.com/Dev9269)
+
+**🌐 Live:** [dev9269.github.io/portfolio](https://dev9269.github.io/portfolio/)
 
 </div>
 
