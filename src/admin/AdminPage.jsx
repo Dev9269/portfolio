@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Lock, Save, Plus, Trash2, Eye, ArrowLeft } from 'lucide-react';
+import { Lock, Save, Plus, Trash2, Eye, ArrowLeft, AlertTriangle } from 'lucide-react';
 import {
   getProfile, getAbout, getProjects, getSkillGroups, getJourney,
   getCompetitions, getInterests, getGoals, getCertifications,
@@ -9,19 +9,107 @@ import {
   saveCompetitions, saveInterests, saveGoals, saveCertifications, resetAll,
 } from '../data/liveData';
 
-function AdminLogin({ onLogin }) {
-  const [pass, setPass] = useState('');
-  const [error, setError] = useState(false);
+const MAX_ATTEMPTS = 5;
+const LOCKOUT_MINUTES = 15;
+const LOCKOUT_KEY = 'admin-lockout';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (pass === 'admin') {
-      onLogin();
-      setError(false);
-    } else {
-      setError(true);
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+function getLockoutEnd() {
+  const stored = sessionStorage.getItem(LOCKOUT_KEY);
+  if (!stored) return null;
+  const end = parseInt(stored, 10);
+  return Date.now() < end ? end : null;
+}
+
+function setLockout() {
+  sessionStorage.setItem(LOCKOUT_KEY, String(Date.now() + LOCKOUT_MINUTES * 60 * 1000));
+}
+
+function LoginForm({ onLogin }) {
+  const [pass, setPass] = useState('');
+  const [error, setError] = useState('');
+  const [attempts, setAttempts] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const lockoutEnd = getLockoutEnd();
+
+  useEffect(() => {
+    if (lockoutEnd) {
+      const timer = setInterval(() => {
+        if (!getLockoutEnd()) {
+          setAttempts(0);
+          clearInterval(timer);
+          window.location.reload();
+        }
+      }, 1000);
+      return () => clearInterval(timer);
     }
+  }, [lockoutEnd]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (getLockoutEnd()) {
+      const remaining = Math.ceil((getLockoutEnd() - Date.now()) / 60000);
+      setError(`Too many attempts. Try again in ${remaining} min.`);
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const adminHash = import.meta.env.VITE_ADMIN_HASH;
+      if (!adminHash) {
+        setError('Admin panel not configured.');
+        setLoading(false);
+        return;
+      }
+
+      const inputHash = await hashPassword(pass);
+
+      if (inputHash === adminHash) {
+        sessionStorage.setItem('admin-auth', 'true');
+        onLogin();
+      } else {
+        const newAttempts = attempts + 1;
+        setAttempts(newAttempts);
+
+        if (newAttempts >= MAX_ATTEMPTS) {
+          setLockout();
+          setError(`Too many attempts. Locked for ${LOCKOUT_MINUTES} min.`);
+        } else {
+          setError(`Invalid credentials. ${MAX_ATTEMPTS - newAttempts} attempt(s) remaining.`);
+        }
+      }
+    } catch {
+      setError('Authentication error.');
+    }
+
+    setLoading(false);
   };
+
+  if (lockoutEnd) {
+    const remaining = Math.ceil((lockoutEnd - Date.now()) / 60000);
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#050505] px-5">
+        <div className="w-full max-w-sm rounded-[2rem] border border-red-500/20 bg-white/[0.04] p-8 text-center backdrop-blur-xl">
+          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/10 text-red-400">
+            <AlertTriangle size={24} />
+          </div>
+          <h1 className="mb-2 text-xl font-semibold text-white">Access Locked</h1>
+          <p className="text-sm text-text-secondary">Too many failed attempts. Try again in <span className="text-red-400">{remaining}</span> minute(s).</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#050505] px-5">
@@ -35,20 +123,23 @@ function AdminLogin({ onLogin }) {
           <Lock size={24} />
         </div>
         <h1 className="mb-2 text-center text-2xl font-semibold text-white">Admin Access</h1>
-        <p className="mb-6 text-center text-sm text-text-secondary">Enter password to manage portfolio</p>
+        <p className="mb-6 text-center text-sm text-text-secondary">Authenticate to manage portfolio</p>
         <input
           type="password"
           value={pass}
-          onChange={(e) => { setPass(e.target.value); setError(false); }}
+          onChange={(e) => { setPass(e.target.value); setError(''); }}
           placeholder="Password"
           className="w-full rounded-2xl border border-white/10 bg-black/35 px-4 py-4 text-center text-text-primary outline-none transition focus:border-accent"
           autoFocus
         />
-        {error && <p className="mt-3 text-center text-sm text-red-400">Incorrect password. Try "admin"</p>}
-        <button type="submit" className="mt-5 w-full rounded-full bg-white py-4 font-semibold text-black transition hover:bg-text-primary">
-          Unlock
+        {error && <p className="mt-3 text-center text-sm text-red-400">{error}</p>}
+        <button
+          type="submit"
+          disabled={loading}
+          className="mt-5 w-full rounded-full bg-white py-4 font-semibold text-black transition hover:bg-text-primary disabled:opacity-60"
+        >
+          {loading ? 'Verifying...' : 'Unlock'}
         </button>
-        <p className="mt-4 text-center text-xs text-text-secondary">Default password: admin</p>
       </motion.form>
     </div>
   );
@@ -182,7 +273,6 @@ function AdminDashboard() {
         )}
 
         <div className="space-y-4">
-          {/* Profile */}
           <Section title="Profile">
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Name" value={profile.name} onChange={(v) => setProfile({ ...profile, name: v })} />
@@ -198,14 +288,12 @@ function AdminDashboard() {
             <Field label="Focus areas (comma-separated)" value={profile.focus.join(', ')} onChange={(v) => setProfile({ ...profile, focus: v.split(',').map((t) => t.trim()) })} />
           </Section>
 
-          {/* About */}
           <Section title="About">
             <Field label="Story" value={about.story} multiline onChange={(v) => setAbout({ ...about, story: v })} />
             <Field label="Detail" value={about.detail} multiline onChange={(v) => setAbout({ ...about, detail: v })} />
             <Field label="Pillars (comma-separated)" value={about.pillars.join(', ')} onChange={(v) => setAbout({ ...about, pillars: v.split(',').map((t) => t.trim()) })} />
           </Section>
 
-          {/* Projects */}
           <Section title="Projects">
             <ArrayEditor
               items={projects}
@@ -228,7 +316,6 @@ function AdminDashboard() {
             />
           </Section>
 
-          {/* Skills */}
           <Section title="Skills">
             <ArrayEditor
               items={skillGroups}
@@ -244,7 +331,6 @@ function AdminDashboard() {
             />
           </Section>
 
-          {/* Journey */}
           <Section title="Journey Timeline">
             <ArrayEditor
               items={journey}
@@ -261,7 +347,6 @@ function AdminDashboard() {
             />
           </Section>
 
-          {/* Competitions */}
           <Section title="Competitions / CTFs">
             <ArrayEditor
               items={competitions}
@@ -282,7 +367,6 @@ function AdminDashboard() {
             />
           </Section>
 
-          {/* Interests */}
           <Section title="Interests">
             <Field
               label="Interests (comma-separated)"
@@ -292,14 +376,12 @@ function AdminDashboard() {
             />
           </Section>
 
-          {/* Goals */}
           <Section title="Goals & Vision">
             <Field label="Vision" value={goals.vision} multiline onChange={(v) => setGoals({ ...goals, vision: v })} />
             <Field label="Short-term goals (pipe-separated)" value={goals.shortTerm.join(' | ')} multiline onChange={(v) => setGoals({ ...goals, shortTerm: v.split('|').map((t) => t.trim()) })} />
             <Field label="Long-term goals (pipe-separated)" value={goals.longTerm.join(' | ')} multiline onChange={(v) => setGoals({ ...goals, longTerm: v.split('|').map((t) => t.trim()) })} />
           </Section>
 
-          {/* Certifications */}
           <Section title="Certifications">
             <ArrayEditor
               items={certifications}
@@ -346,6 +428,21 @@ export default function AdminPage() {
     setAuthenticated(true);
   };
 
-  if (!authenticated) return <AdminLogin onLogin={handleLogin} />;
+  if (getLockoutEnd()) {
+    const remaining = Math.ceil((getLockoutEnd() - Date.now()) / 60000);
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#050505] px-5">
+        <div className="w-full max-w-sm rounded-[2rem] border border-red-500/20 bg-white/[0.04] p-8 text-center backdrop-blur-xl">
+          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/10 text-red-400">
+            <AlertTriangle size={24} />
+          </div>
+          <h1 className="mb-2 text-xl font-semibold text-white">Access Locked</h1>
+          <p className="text-sm text-text-secondary">Too many failed attempts. Try again in <span className="text-red-400">{remaining}</span> minute(s).</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!authenticated) return <LoginForm onLogin={handleLogin} />;
   return <AdminDashboard />;
 }

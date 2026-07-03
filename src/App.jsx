@@ -65,7 +65,7 @@ export default function App() {
           <Route path="/interests" element={<InterestsPage />} />
           <Route path="/certifications" element={<CertificationsPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/superadminxyz" element={<AdminPage />} />
         </Routes>
       </AnimatePresence>
       <Footer />
