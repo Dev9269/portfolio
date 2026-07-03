@@ -12,6 +12,7 @@ import {
 const MAX_ATTEMPTS = 5;
 const LOCKOUT_MINUTES = 15;
 const LOCKOUT_KEY = 'admin-lockout';
+const ADMIN_HASH = '77e5e371c33c89e91338bae6bf708753055a42895f6511a7c75d32a4993242de';
 
 async function hashPassword(password) {
   const encoder = new TextEncoder();
@@ -83,8 +84,7 @@ function LoginForm({ onLogin }) {
     setError('');
 
     try {
-      const adminHash = import.meta.env.VITE_ADMIN_HASH;
-      if (!adminHash) {
+      if (!ADMIN_HASH) {
         setError('Admin panel not configured.');
         setLoading(false);
         return;
@@ -92,7 +92,7 @@ function LoginForm({ onLogin }) {
 
       const inputHash = await hashPassword(pass);
 
-      if (inputHash === adminHash) {
+      if (inputHash === ADMIN_HASH) {
         sessionStorage.setItem('admin-auth', 'true');
         onLogin();
       } else {
