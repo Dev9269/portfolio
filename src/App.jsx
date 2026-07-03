@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -47,12 +47,27 @@ function DevToolsBlocker() {
   return null;
 }
 
+function SpaRedirector() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const redirect = sessionStorage.getItem('spa-redirect');
+    if (redirect && redirect !== '/') {
+      sessionStorage.removeItem('spa-redirect');
+      navigate(redirect, { replace: true });
+    }
+  }, [navigate]);
+
+  return null;
+}
+
 export default function App() {
   const location = useLocation();
 
   return (
     <div className="min-h-screen bg-dark text-text-primary overflow-x-hidden selection:bg-accent/30 selection:text-white">
       <ScrollToTop />
+      <SpaRedirector />
       <DevToolsBlocker />
       <Navbar />
       <AnimatePresence mode="wait">

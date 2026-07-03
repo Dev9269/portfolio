@@ -2,10 +2,11 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0;url=/portfolio/">
-  <script>window.location.href = '/portfolio/';</script>
+  <script>
+    var p = window.location.pathname.replace('/portfolio', '') || '/';
+    sessionStorage.setItem('spa-redirect', p);
+    window.location.replace('/portfolio/');
+  </script>
 </head>
-<body>
-  <p>Redirecting to <a href="/portfolio/">portfolio</a>...</p>
-</body>
+<body></body>
 </html>
