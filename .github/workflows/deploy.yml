@@ -29,6 +29,7 @@ jobs:
       - run: npm run build
         env:
           VITE_ADMIN_HASH: ${{ secrets.ADMIN_HASH }}
+      - run: cp dist/index.html dist/404.html
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:
