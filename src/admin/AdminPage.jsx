@@ -33,32 +33,49 @@ function setLockout() {
   sessionStorage.setItem(LOCKOUT_KEY, String(Date.now() + LOCKOUT_MINUTES * 60 * 1000));
 }
 
+function LockoutDisplay() {
+  const [remaining, setRemaining] = useState(() => {
+    const end = getLockoutEnd();
+    return end ? Math.ceil((end - Date.now()) / 60000) : 0;
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const end = getLockoutEnd();
+      if (!end) {
+        clearInterval(timer);
+        window.location.reload();
+        return;
+      }
+      setRemaining(Math.ceil((end - Date.now()) / 60000));
+    }, 10000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#050505] px-5">
+      <div className="w-full max-w-sm rounded-[2rem] border border-red-500/20 bg-white/[0.04] p-8 text-center backdrop-blur-xl">
+        <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/10 text-red-400">
+          <AlertTriangle size={24} />
+        </div>
+        <h1 className="mb-2 text-xl font-semibold text-white">Access Locked</h1>
+        <p className="text-sm text-text-secondary">Too many failed attempts. Try again in <span className="text-red-400">{remaining}</span> minute(s).</p>
+      </div>
+    </div>
+  );
+}
+
 function LoginForm({ onLogin }) {
   const [pass, setPass] = useState('');
   const [error, setError] = useState('');
   const [attempts, setAttempts] = useState(0);
   const [loading, setLoading] = useState(false);
-  const lockoutEnd = getLockoutEnd();
-
-  useEffect(() => {
-    if (lockoutEnd) {
-      const timer = setInterval(() => {
-        if (!getLockoutEnd()) {
-          setAttempts(0);
-          clearInterval(timer);
-          window.location.reload();
-        }
-      }, 1000);
-      return () => clearInterval(timer);
-    }
-  }, [lockoutEnd]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (getLockoutEnd()) {
-      const remaining = Math.ceil((getLockoutEnd() - Date.now()) / 60000);
-      setError(`Too many attempts. Try again in ${remaining} min.`);
+      setError(`Too many attempts. Try again later.`);
       return;
     }
 
@@ -96,20 +113,7 @@ function LoginForm({ onLogin }) {
     setLoading(false);
   };
 
-  if (lockoutEnd) {
-    const remaining = Math.ceil((lockoutEnd - Date.now()) / 60000);
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#050505] px-5">
-        <div className="w-full max-w-sm rounded-[2rem] border border-red-500/20 bg-white/[0.04] p-8 text-center backdrop-blur-xl">
-          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/10 text-red-400">
-            <AlertTriangle size={24} />
-          </div>
-          <h1 className="mb-2 text-xl font-semibold text-white">Access Locked</h1>
-          <p className="text-sm text-text-secondary">Too many failed attempts. Try again in <span className="text-red-400">{remaining}</span> minute(s).</p>
-        </div>
-      </div>
-    );
-  }
+  if (getLockoutEnd()) return <LockoutDisplay />;
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#050505] px-5">
@@ -428,20 +432,7 @@ export default function AdminPage() {
     setAuthenticated(true);
   };
 
-  if (getLockoutEnd()) {
-    const remaining = Math.ceil((getLockoutEnd() - Date.now()) / 60000);
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#050505] px-5">
-        <div className="w-full max-w-sm rounded-[2rem] border border-red-500/20 bg-white/[0.04] p-8 text-center backdrop-blur-xl">
-          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/10 text-red-400">
-            <AlertTriangle size={24} />
-          </div>
-          <h1 className="mb-2 text-xl font-semibold text-white">Access Locked</h1>
-          <p className="text-sm text-text-secondary">Too many failed attempts. Try again in <span className="text-red-400">{remaining}</span> minute(s).</p>
-        </div>
-      </div>
-    );
-  }
+  if (getLockoutEnd()) return <LockoutDisplay />;
 
   if (!authenticated) return <LoginForm onLogin={handleLogin} />;
   return <AdminDashboard />;
