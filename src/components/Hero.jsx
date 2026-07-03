@@ -184,7 +184,7 @@ export default function Hero() {
             </div>
             <div className="mt-5 overflow-hidden rounded-[1.4rem] border border-white/10">
               <img
-                src="/profile.png"
+                src={import.meta.env.BASE_URL + 'profile.png'}
                 alt={profile.name}
                 className="h-full w-full object-cover transition duration-500 hover:scale-105"
               />
