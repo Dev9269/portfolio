@@ -7,6 +7,8 @@
 [![License](https://img.shields.io/github/license/Dev9269/portfolio?style=flat-square&color=brightgreen)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat-square)](https://github.com/Dev9269/portfolio/pulls)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Dev9269.github.io-0891b2?style=flat-square&logo=githubpages&logoColor=white)](https://dev9269.github.io/portfolio/)
+[![CI](https://github.com/Dev9269/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Dev9269/portfolio/actions/workflows/ci.yml)
+[![Deploy](https://github.com/Dev9269/portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/Dev9269/portfolio/actions/workflows/deploy.yml)
 
 A clean, minimal, professional developer portfolio built with React, Tailwind CSS, and Framer Motion.
 
@@ -35,6 +37,15 @@ npm run dev
 ```
 
 Visit: `http://localhost:5173`
+
+## 🔐 Security Features
+
+- **Hidden admin route** - Panel accessible only via obfuscated path
+- **SHA-256 password hashing** - Password never stored in plaintext
+- **Rate limiting** - Lockout after 5 failed attempts (15 min cooldown)
+- **robots.txt** - Blocks search engines from indexing admin pages
+- **HashRouter** - Client-side routing prevents path enumeration
+- **DevTools prevention** - F12/right-click blocked on production
 
 ## 📦 Build
 
