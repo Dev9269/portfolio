@@ -12,7 +12,6 @@ import InterestsPage from './pages/InterestsPage';
 import CertificationsPage from './pages/CertificationsPage';
 import ContactPage from './pages/ContactPage';
 import AdminPage from './admin/AdminPage';
-import './index.css';
 
 function ScrollToTop() {
   const { pathname } = useLocation();

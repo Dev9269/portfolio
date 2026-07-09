@@ -144,7 +144,7 @@ export default function Hero() {
               </Link>
             </motion.div>
             <motion.a
-              href={profile.resume}
+              href={import.meta.env.BASE_URL + 'resume.html'}
               whileHover={{ y: -2 }}
               className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3 font-semibold text-white transition hover:border-accent hover:bg-white/5 sm:w-auto"
             >

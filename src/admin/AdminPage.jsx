@@ -166,20 +166,18 @@ function Section({ title, children, defaultOpen }) {
   );
 }
 
-function ArrayEditor({ items, renderItem, defaultItem, label }) {
-  const [list, setList] = useState(items);
-
-  const add = () => setList([...list, { ...defaultItem }]);
-  const remove = (i) => setList(list.filter((_, idx) => idx !== i));
+function ArrayEditor({ items, renderItem, defaultItem, label, onChange }) {
+  const add = () => onChange([...items, { ...defaultItem }]);
+  const remove = (i) => onChange(items.filter((_, idx) => idx !== i));
   const update = (i, field, value) => {
-    const copy = [...list];
+    const copy = [...items];
     copy[i] = { ...copy[i], [field]: value };
-    setList(copy);
+    onChange(copy);
   };
 
   return (
     <div>
-      {list.map((item, i) => (
+      {items.map((item, i) => (
         <div key={i} className="mb-4 rounded-2xl border border-white/10 bg-black/30 p-4">
           <div className="mb-3 flex items-center justify-between">
             <span className="text-xs text-text-secondary">{label} {i + 1}</span>
@@ -196,16 +194,27 @@ function ArrayEditor({ items, renderItem, defaultItem, label }) {
 }
 
 function Field({ label, value, onChange, multiline, type }) {
-  const Tag = multiline ? 'textarea' : 'input';
+  if (multiline) {
+    return (
+      <label className="mb-3 block">
+        <span className="mb-1 block text-xs text-text-secondary">{label}</span>
+        <textarea
+          value={value || ''}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full rounded-xl border border-white/10 bg-black/35 px-4 py-3 text-sm text-text-primary outline-none transition focus:border-accent"
+          rows={3}
+        />
+      </label>
+    );
+  }
   return (
     <label className="mb-3 block">
       <span className="mb-1 block text-xs text-text-secondary">{label}</span>
-      <Tag
+      <input
         type={type || 'text'}
         value={value || ''}
         onChange={(e) => onChange(e.target.value)}
         className="w-full rounded-xl border border-white/10 bg-black/35 px-4 py-3 text-sm text-text-primary outline-none transition focus:border-accent"
-        rows={multiline ? 3 : undefined}
       />
     </label>
   );
@@ -295,13 +304,13 @@ function AdminDashboard() {
           <Section title="About">
             <Field label="Story" value={about.story} multiline onChange={(v) => setAbout({ ...about, story: v })} />
             <Field label="Detail" value={about.detail} multiline onChange={(v) => setAbout({ ...about, detail: v })} />
-            <Field label="Pillars (comma-separated)" value={about.pillars.join(', ')} onChange={(v) => setAbout({ ...about, pillars: v.split(',').map((t) => t.trim()) })} />
+            <Field label="Pillars (comma-separated)" value={(about.pillars || []).join(', ')} onChange={(v) => setAbout({ ...about, pillars: v.split(',').map((t) => t.trim()) })} />
           </Section>
 
           <Section title="Projects">
             <ArrayEditor
               items={projects}
-              onSave={setProjects}
+              onChange={setProjects}
               defaultItem={{ title: '', tag: '', description: '', stack: [], impact: '', gradient: 'from-blue-500/20 to-transparent', image: '', liveUrl: '', githubUrl: '', highlights: [] }}
               label="Project"
               renderItem={(item, i, onChange) => (
@@ -323,7 +332,7 @@ function AdminDashboard() {
           <Section title="Skills">
             <ArrayEditor
               items={skillGroups}
-              onSave={setSkillGroupsState}
+              onChange={setSkillGroupsState}
               defaultItem={{ category: '', skills: [] }}
               label="Skill Group"
               renderItem={(item, i, onChange) => (
@@ -338,7 +347,7 @@ function AdminDashboard() {
           <Section title="Journey Timeline">
             <ArrayEditor
               items={journey}
-              onSave={setJourney}
+              onChange={setJourney}
               defaultItem={{ year: '2026', title: '', description: '' }}
               label="Milestone"
               renderItem={(item, i, onChange) => (
@@ -354,7 +363,7 @@ function AdminDashboard() {
           <Section title="Competitions / CTFs">
             <ArrayEditor
               items={competitions}
-              onSave={setCompetitions}
+              onChange={setCompetitions}
               defaultItem={{ name: '', team: '', rank: '', outOf: '', score: null, badge: 'Participant', description: '', gradient: 'from-blue-500/20 to-transparent' }}
               label="Competition"
               renderItem={(item, i, onChange) => (
@@ -389,7 +398,7 @@ function AdminDashboard() {
           <Section title="Certifications">
             <ArrayEditor
               items={certifications}
-              onSave={setCertifications}
+              onChange={setCertifications}
               defaultItem={{ title: '', issuer: '', description: '' }}
               label="Certification"
               renderItem={(item, i, onChange) => (

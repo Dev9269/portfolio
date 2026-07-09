@@ -1,277 +1,129 @@
 <div align="center">
 
-# 🌐 Portfolio
+# Portfolio
 
 [![Stars](https://img.shields.io/github/stars/Dev9269/portfolio?style=flat-square&logo=github&color=gold)](https://github.com/Dev9269/portfolio)
-[![Forks](https://img.shields.io/github/forks/Dev9269/portfolio?style=flat-square&logo=github&color=blue)](https://github.com/Dev9269/portfolio/forks)
 [![License](https://img.shields.io/github/license/Dev9269/portfolio?style=flat-square&color=brightgreen)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat-square)](https://github.com/Dev9269/portfolio/pulls)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Dev9269.github.io-0891b2?style=flat-square&logo=githubpages&logoColor=white)](https://dev9269.github.io/portfolio/)
 [![CI](https://github.com/Dev9269/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Dev9269/portfolio/actions/workflows/ci.yml)
 [![Deploy](https://github.com/Dev9269/portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/Dev9269/portfolio/actions/workflows/deploy.yml)
 
-A clean, minimal, professional developer portfolio built with React, Tailwind CSS, and Framer Motion.
+A professional developer portfolio built with React, Tailwind CSS, and Framer Motion.
 
 **Created by** [Jainam Maru](https://github.com/Dev9269)
 
-**🌐 Live:** [dev9269.github.io/portfolio](https://dev9269.github.io/portfolio/)
+**Live:** [dev9269.github.io/portfolio](https://dev9269.github.io/portfolio/)
 
 </div>
 
-## 🎯 Design Philosophy
+## Tech Stack
 
-**Engineer Vintage** - Dark, minimal, premium aesthetic focused on business results.
+- **React 19** — UI framework
+- **Tailwind CSS 3.4** — Styling
+- **Framer Motion** — Animations
+- **Vite** — Build tool
+- **React Router** — Client-side routing
+- **Three.js** — 3D canvas globe
+- **Lucide React** — Icons
+- **Lenis** — Smooth scrolling
 
-- No heavy 3D effects
-- Minimal animations (only where they add value)
-- Large, clean spacing
-- Professional presentation
-- Projects as the hero section
-
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
-cd portfolio-pro
 npm install
 npm run dev
 ```
 
-Visit: `http://localhost:5173`
+## Available Scripts
 
-## 🔐 Security Features
+- `npm run dev` — Start development server
+- `npm run build` — Production build to `dist/`
+- `npm run preview` — Preview production build
+- `npm run lint` — Run ESLint
 
-- **Hidden admin route** - Panel accessible only via obfuscated path
-- **SHA-256 password hashing** - Password never stored in plaintext
-- **Rate limiting** - Lockout after 5 failed attempts (15 min cooldown)
-- **robots.txt** - Blocks search engines from indexing admin pages
-- **HashRouter** - Client-side routing prevents path enumeration
-- **DevTools prevention** - F12/right-click blocked on production
+## Project Structure
 
-## 📦 Build
+```
+portfolio/
+├── public/
+│   ├── favicon.svg
+│   ├── icons.svg
+│   ├── profile.png
+│   ├── resume.html
+│   ├── robots.txt
+│   └── 404.html
+├── src/
+│   ├── admin/
+│   │   └── AdminPage.jsx      — Admin dashboard with auth
+│   ├── assets/
+│   │   ├── hero.png
+│   │   ├── react.svg
+│   │   └── vite.svg
+│   ├── components/
+│   │   ├── About.jsx          — About section with animated counters
+│   │   ├── Certifications.jsx — Certifications grid
+│   │   ├── Contact.jsx        — Contact form with social links
+│   │   ├── Footer.jsx         — Footer with links
+│   │   ├── Goals.jsx          — Goals & interests sections
+│   │   ├── Hero.jsx           — Hero with Three.js globe
+│   │   ├── Journey.jsx        — Timeline + hackathons
+│   │   ├── Navbar.jsx         — Responsive navigation
+│   │   ├── Projects.jsx       — Project showcase
+│   │   └── Skills.jsx         — Skills with animated bars
+│   ├── data/
+│   │   ├── liveData.js        — localStorage-backed data layer
+│   │   └── portfolio.js       — All portfolio content
+│   ├── pages/
+│   │   ├── AboutPage.jsx
+│   │   ├── CertificationsPage.jsx
+│   │   ├── ContactPage.jsx
+│   │   ├── HomePage.jsx
+│   │   ├── InterestsPage.jsx
+│   │   ├── JourneyPage.jsx
+│   │   ├── ProjectsPage.jsx
+│   │   └── SkillsPage.jsx
+│   ├── App.jsx                — Root with routing + DevTools blocker
+│   ├── index.css              — Tailwind + global styles
+│   └── main.jsx               — Entry point
+├── index.html
+├── tailwind.config.js
+├── eslint.config.js
+└── package.json
+```
+
+## Features
+
+- **9 pages** with HashRouter (SPA)
+- **3D globe** in hero section (Three.js)
+- **Responsive** — mobile-first, all breakpoints
+- **Dark theme** — consistent dark color scheme
+- **Animations** — scroll reveals, hover effects, page transitions
+- **Admin panel** — password-protected content editor at `/superadminxyz`
+- **DevTools protection** — F12/right-click blocked on production
+- **Rate-limited admin login** — lockout after 5 failed attempts
+- **localStorage persistence** — admin changes survive page reload
+- **SEO meta tags** — Open Graph, Twitter Card, description
+
+## Admin Panel
+
+Access the admin panel at `/superadminxyz` to edit portfolio content directly in the browser. Changes are persisted to localStorage.
+
+Security features:
+- SHA-256 password hashing
+- Rate limiting (5 attempts, 15 min lockout)
+- Hidden route (obfuscated path, not in sitemap)
+- Blocked from search engine indexing via `robots.txt`
+
+## Deployment
+
+The project includes GitHub Actions CI/CD:
+
+- **CI** — Runs on every push/PR: installs dependencies, lints, builds
+- **Deploy** — Automatically deploys to GitHub Pages on push to `master`
+
+### Manual Deploy
 
 ```bash
 npm run build
 ```
 
-Production files in `dist/` folder.
-
-## 🎨 Design Tokens
-
-### Colors
-- **Background**: `#0E0E0E` - Deep dark
-- **Surface**: `#1A1A1A` - Card backgrounds
-- **Accent**: `#C2A878` - Gold (primary)
-- **Secondary**: `#6A8D92` - Teal
-- **Text Primary**: `#EDEDED` - Off-white
-- **Text Secondary**: `#A8A8A8` - Gray
-
-### Typography
-- **Headings**: Playfair Display (serif)
-- **Body**: Inter (sans-serif)
-
-## 📂 Project Structure
-
-```
-portfolio-pro/
-├── src/
-│   ├── components/
-│   │   ├── Navbar.jsx      - Navigation
-│   │   ├── Hero.jsx        - Main hero section
-│   │   ├── Projects.jsx    - Project grid (MAIN FOCUS)
-│   │   ├── About.jsx       - About section
-│   │   ├── Skills.jsx      - Skills list
-│   │   ├── Contact.jsx     - Contact form
-│   │   └── Footer.jsx      - Footer
-│   ├── App.jsx             - Main app
-│   ├── main.jsx            - Entry point
-│   └── index.css           - Global styles
-├── index.html              - HTML template
-├── tailwind.config.js      - Tailwind config
-├── postcss.config.js       - PostCSS config
-└── package.json            - Dependencies
-```
-
-## 🔧 Customization
-
-### Update Your Name
-**Navbar.jsx** (line 11):
-```jsx
-<div className="font-serif font-bold text-lg text-accent">
-  Your Name
-</div>
-```
-
-### Update Hero Headline
-**Hero.jsx** (line 15):
-```jsx
-<h1 className="text-6xl md:text-7xl font-bold leading-tight mb-6">
-  I build websites that <span className="text-accent italic">bring customers</span>
-</h1>
-```
-
-### Add Projects
-**Projects.jsx** (line 5):
-```jsx
-const projects = [
-  {
-    title: "Project Name",
-    description: "Project description",
-    image: "https://image-url.jpg",
-    link: "https://project-link.com",
-  },
-  // Add more...
-];
-```
-
-### Update Skills
-**Skills.jsx** (line 4):
-```jsx
-const skillGroups = [
-  {
-    category: "Frontend",
-    skills: ["React", "TypeScript", "Tailwind CSS", ...]
-  },
-  // Add more categories...
-];
-```
-
-### Update Social Links
-**Footer.jsx** (line 52-62):
-```jsx
-<a href="https://twitter.com/yourhandle" ...>Twitter</a>
-<a href="https://linkedin.com/in/yourprofile" ...>LinkedIn</a>
-<a href="https://github.com/yourprofile" ...>GitHub</a>
-```
-
-### Update Contact Info
-**Contact.jsx** (line 105):
-```jsx
-<a href="mailto:your@email.com" className="...">
-  your@email.com
-</a>
-```
-
-## 🎬 Animations
-
-All animations use Framer Motion:
-- **Scroll Reveal**: Fade + slide up (0.5-0.8s)
-- **Hover Effects**: Scale 1.03 + shadow
-- **Smooth Scrolling**: HTML native
-
-**Keep animations subtle** - They should enhance, not distract.
-
-## 📱 Responsive
-
-- **Mobile**: Stack vertically, full width
-- **Tablet**: 2 columns for projects
-- **Desktop**: 2-3 columns for projects
-
-All breakpoints handled via Tailwind's `md:` and `lg:` prefixes.
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-```bash
-npm i -g vercel
-vercel
-```
-
-### Netlify
-```bash
-npm i -g netlify-cli
-netlify deploy --prod --dir=dist
-```
-
-### Traditional Hosting
-1. Run `npm run build`
-2. Upload `dist/` folder to your server
-3. Configure for SPA (Single Page Application)
-
-## 🎓 What's Included
-
-- ✅ 7 fully functional components
-- ✅ Responsive design (mobile to desktop)
-- ✅ Form handling
-- ✅ Smooth scrolling
-- ✅ Professional animations
-- ✅ Clean, minimal design
-- ✅ Production-ready
-- ✅ Easy to customize
-
-## 📊 Performance
-
-- **Build Size**: 325KB JavaScript (102KB gzipped)
-- **CSS Size**: 12KB (3KB gzipped)
-- **Load Time**: < 2 seconds
-- **Animations**: 60 FPS smooth
-
-## 🎁 Features
-
-- Sticky navigation
-- Smooth scroll navigation
-- Hover effects on project cards
-- Form validation
-- Responsive grid layout
-- Dark theme throughout
-- Professional typography
-- Gold accent color
-
-## 🔍 SEO Ready
-
-- Semantic HTML
-- Proper heading hierarchy
-- Meta tags in HTML
-- Sitemap ready (add `/sitemap.xml`)
-- Open Graph ready (add meta tags)
-
-## 🛠️ Tech Stack
-
-- **React 19** - UI framework
-- **Tailwind CSS 3.4** - Styling
-- **Framer Motion** - Animations
-- **Vite** - Build tool
-- **Lucide React** - Icons
-
-## 📝 Notes
-
-- This is a **foundation** - customize with your actual projects
-- Replace placeholder images with your own
-- Update all links and contact info
-- Test form submission integration (currently logs to console)
-- Add analytics (Google Analytics, etc.)
-
-## 🚀 Next Steps
-
-1. **Customize Content**
-   - Update name, headline, about text
-   - Add your real projects
-   - Update skills and tools
-   - Add social links
-
-2. **Replace Images**
-   - Use project screenshots
-   - Or use free stock photos
-
-3. **Test**
-   - Run `npm run dev`
-   - Test on mobile
-   - Check all links
-
-4. **Deploy**
-   - Run `npm run build`
-   - Deploy to Vercel or Netlify
-   - Add custom domain
-
-## 📞 Support
-
-All components are well-structured and easy to modify. Refer to specific component files for:
-- Props structure
-- Event handlers
-- Styling classes
-- Animation triggers
-
----
-
-**Built with React, Tailwind CSS, and Framer Motion**  
-**Engineer Vintage Design System**  
-**Production Ready** ✅
+Upload the `dist/` folder to any static host (Vercel, Netlify, etc.).
