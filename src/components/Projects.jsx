@@ -21,6 +21,15 @@ export default function Projects() {
           </p>
         </motion.div>
 
+        {projects.length === 0 ? (
+          <div className="flex min-h-[300px] items-center justify-center rounded-[2.25rem] border border-dashed border-white/10 bg-white/[0.015]">
+            <div className="text-center">
+              <p className="text-4xl">📦</p>
+              <p className="mt-4 text-lg text-text-secondary">No projects to display yet.</p>
+              <p className="mt-1 text-sm text-text-secondary">Projects will appear here once added.</p>
+            </div>
+          </div>
+        ) : (
         <div className="space-y-8">
           {projects.map((project, i) => (
             <motion.article
@@ -84,6 +93,7 @@ export default function Projects() {
             </motion.article>
           ))}
         </div>
+        )}
       </div>
     </section>
   );
