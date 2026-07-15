@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
+import BackToTop from './components/BackToTop';
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
@@ -65,6 +66,7 @@ export default function App() {
       <ScrollToTop />
       <DevToolsBlocker />
       <Navbar />
+      <BackToTop />
       <ErrorBoundary>
         <Suspense fallback={<PageFallback />}>
           <AnimatePresence mode="wait">
