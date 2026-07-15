@@ -55,6 +55,11 @@
   }
 }
 
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
