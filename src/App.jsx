@@ -1,18 +1,28 @@
-import { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import JourneyPage from './pages/JourneyPage';
-import ProjectsPage from './pages/ProjectsPage';
-import SkillsPage from './pages/SkillsPage';
-import InterestsPage from './pages/InterestsPage';
-import CertificationsPage from './pages/CertificationsPage';
-import ContactPage from './pages/ContactPage';
-import AdminPage from './admin/AdminPage';
-import './index.css';
+import ErrorBoundary from './components/ErrorBoundary';
+
+const HomePage = lazy(() => import('./pages/HomePage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const JourneyPage = lazy(() => import('./pages/JourneyPage'));
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
+const SkillsPage = lazy(() => import('./pages/SkillsPage'));
+const InterestsPage = lazy(() => import('./pages/InterestsPage'));
+const CertificationsPage = lazy(() => import('./pages/CertificationsPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const AdminPage = lazy(() => import('./admin/AdminPage'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+function PageFallback() {
+  return (
+    <div className="flex min-h-[60vh] items-center justify-center">
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+    </div>
+  );
+}
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -55,19 +65,25 @@ export default function App() {
       <ScrollToTop />
       <DevToolsBlocker />
       <Navbar />
-      <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/journey" element={<JourneyPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/skills" element={<SkillsPage />} />
-          <Route path="/interests" element={<InterestsPage />} />
-          <Route path="/certifications" element={<CertificationsPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/admin" element={<AdminPage />} />
-        </Routes>
-      </AnimatePresence>
+      <ErrorBoundary>
+        <Suspense fallback={<PageFallback />}>
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/journey" element={<JourneyPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/skills" element={<SkillsPage />} />
+              <Route path="/interests" element={<InterestsPage />} />
+              <Route path="/certifications" element={<CertificationsPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/superadminxyz" element={<AdminPage />} />
+              <Route path="/admin" element={<Navigate to="/" replace />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AnimatePresence>
+        </Suspense>
+      </ErrorBoundary>
       <Footer />
     </div>
   );

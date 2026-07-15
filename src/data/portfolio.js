@@ -1,6 +1,6 @@
 export const profile = {
   name: 'Jainam H. Maru',
-  eyebrow: 'B.Tech Cybersecurity · Ethical Hacker · AI Builder · EduOS Creator',
+  eyebrow: 'B.Tech Cybersecurity · Ethical Hacker · AI Builder · OS Creator',
   tagline: 'Building secure systems, intelligent software, and ambitious ideas.',
   location: 'India',
   status: 'Online',
@@ -15,7 +15,7 @@ export const profile = {
     { title: 'AI Builder', icon: 'Brain' },
     { title: 'OS Creator', icon: 'Monitor' },
   ],
-  focus: ['EduOS', 'Cybersecurity', 'AI Systems', 'Pentesting'],
+  focus: ['Cybersecurity', 'AI Systems', 'Pentesting'],
   university: 'Parul University',
   degree: 'B.Tech in Cybersecurity',
 };
@@ -42,7 +42,7 @@ export const journey = [
   { year: '2023', title: 'First CTF Victory', description: 'Participated in first CTF competitions. Team Caffeine and Code formed.' },
   { year: '2024', title: 'E-Rakshak CTF', description: 'Secured 39th place among 157 teams with 2713 points. Major milestone.' },
   { year: '2024', title: 'NHAI Hackathon', description: 'Built Smart Toilet Monitoring Platform at national-level innovation hackathon.' },
-  { year: '2025', title: 'Created EduOS', description: 'Debian-based educational OS with labs, exams, and developer tools.' },
+  { year: '2025', title: 'Built Educational OS', description: 'Debian-based OS with labs, exams, and developer tools.' },
   { year: '2025', title: 'AI Fraud Detection', description: 'Built ML-powered insider threat detection for banking environments.' },
   { year: '2026', title: 'Future Startup Vision', description: 'Entrepreneurial path toward innovative security and education solutions.' },
 ];
@@ -81,25 +81,6 @@ export const competitions = [
 ];
 
 export const projects = [
-  {
-    title: 'EduOS',
-    tag: 'Flagship Product',
-    description:
-      'A Debian-based educational operating system designed for schools, colleges, and universities. Features a Windows-like interface, integrated examination environment, cybersecurity labs, learning tools, and developer utilities.',
-    stack: ['Debian', 'Linux Kernel', 'Python', 'Shell', 'Cybersecurity Labs', 'UI/UX'],
-    impact: 'Flagship education OS',
-    gradient: 'from-blue-500/25 via-indigo-500/10 to-transparent',
-    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800',
-    initial: 'E',
-    liveUrl: '/contact',
-    githubUrl: '/contact',
-    highlights: [
-      'Windows-like desktop experience on Linux',
-      'Integrated exam environment for institutions',
-      'Pre-configured cybersecurity labs',
-      'Developer utilities toolchain',
-    ],
-  },
   {
     title: 'SSH Honeypot',
     tag: 'Security Research',
@@ -317,5 +298,5 @@ export const contact = {
   linkedin: 'https://www.linkedin.com/in/jainam-maru-007803386',
   instagram: 'https://www.instagram.com/jainammaru_/',
   intro:
-    'Open for cybersecurity research collaborations, CTF teamups, EduOS contributions, AI security experiments, and ambitious product conversations.',
+    'Open for cybersecurity research collaborations, CTF teamups, AI security experiments, and ambitious product conversations.',
 };

@@ -23,7 +23,7 @@ export default function Journey() {
             <div className="relative space-y-6 border-l border-white/10 pl-8">
               {journey.map((item, index) => (
                 <motion.div
-                  key={item.title}
+                  key={item.year + '-' + item.title}
                   initial={{ opacity: 0, x: 24 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: '-80px' }}

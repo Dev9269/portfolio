@@ -33,8 +33,8 @@ export default function Contact() {
           </p>
           <div className="mt-10 grid gap-3 text-text-secondary">
             <a href={`mailto:${contact.email}`} className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition hover:border-accent hover:text-white"><Mail size={18} /> {contact.email}</a>
-            <a href={contact.github} className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition hover:border-accent hover:text-white"><GitBranch size={18} /> GitHub</a>
-            <a href={contact.linkedin} className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition hover:border-accent hover:text-white"><Network size={18} /> LinkedIn</a>
+            <a href={contact.github} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition hover:border-accent hover:text-white"><GitBranch size={18} /> GitHub</a>
+            <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition hover:border-accent hover:text-white"><Network size={18} /> LinkedIn</a>
             <a href={contact.instagram} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition hover:border-accent hover:text-white"><Camera size={18} /> Instagram</a>
           </div>
         </motion.div>
