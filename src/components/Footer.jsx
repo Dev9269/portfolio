@@ -26,12 +26,12 @@ export default function Footer() {
             transition={{ delay: 0.1 }}
           >
             <h4 className="mb-3 text-sm font-semibold uppercase tracking-[0.22em] text-accent">Explore</h4>
-            <div className="space-y-2 text-sm text-text-secondary">
+            <nav aria-label="Footer navigation" className="space-y-2 text-sm text-text-secondary">
               <Link to="/about" className="block transition-colors hover:text-white">About</Link>
               <Link to="/projects" className="block transition-colors hover:text-white">Projects</Link>
               <Link to="/skills" className="block transition-colors hover:text-white">Skills</Link>
               <Link to="/contact" className="block transition-colors hover:text-white">Contact</Link>
-            </div>
+            </nav>
           </motion.div>
 
           <motion.div
@@ -41,7 +41,7 @@ export default function Footer() {
             transition={{ delay: 0.2 }}
           >
             <h4 className="mb-3 text-sm font-semibold uppercase tracking-[0.22em] text-accent">Connect</h4>
-            <div className="space-y-2 text-sm text-text-secondary">
+            <nav aria-label="Social links" className="space-y-2 text-sm text-text-secondary">
               <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="block transition-colors hover:text-white">
                 LinkedIn
               </a>
@@ -51,7 +51,7 @@ export default function Footer() {
               <a href={profile.instagram} target="_blank" rel="noopener noreferrer" className="block transition-colors hover:text-white">
                 Instagram
               </a>
-            </div>
+            </nav>
           </motion.div>
         </div>
 
