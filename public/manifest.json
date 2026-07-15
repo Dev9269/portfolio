@@ -1,0 +1,16 @@
+{
+  "name": "Jainam Maru Portfolio",
+  "short_name": "JHM Portfolio",
+  "description": "Cybersecurity engineer and full-stack developer portfolio",
+  "start_url": "/portfolio/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "icons": [
+    {
+      "src": "profile.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
