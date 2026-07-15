@@ -45,6 +45,16 @@
   }
 }
 
+@media print {
+  nav, footer, .fixed, [aria-hidden="true"] {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
