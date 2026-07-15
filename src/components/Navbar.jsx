@@ -83,7 +83,16 @@ export default function Navbar() {
               );
             })}
             </div>
-            <Link
+            <a
+            href="https://github.com/Dev9269/portfolio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-sm text-white transition hover:border-accent hover:bg-white/5 sm:inline-flex"
+          >
+            <svg viewBox="0 0 16 16" className="h-4 w-4" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+            Star
+          </a>
+          <Link
             to="/contact"
             className="hidden rounded-full border border-white/15 px-4 py-2 text-sm text-white transition hover:border-accent hover:bg-white/5 sm:inline-block"
           >
@@ -128,6 +137,15 @@ export default function Navbar() {
                   </Link>
                 );
               })}
+              <a
+                href="https://github.com/Dev9269/portfolio"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                className="mt-3 block rounded-full border border-white/15 px-4 py-3 text-center text-sm text-white transition hover:border-accent hover:bg-white/5 sm:hidden"
+              >
+                ⭐ Star on GitHub
+              </a>
               <Link
                 to="/contact"
                 onClick={() => setMenuOpen(false)}
