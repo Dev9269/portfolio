@@ -28,6 +28,12 @@
   a, button, input, textarea {
     -webkit-tap-highlight-color: transparent;
   }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.accent');
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
 }
 
 ::-webkit-scrollbar {
