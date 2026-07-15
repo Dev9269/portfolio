@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Download, MapPin } from 'lucide-react';
@@ -6,6 +6,7 @@ import { getProfile } from '../data/liveData';
 
 function GlobeCanvas() {
   const canvasRef = useRef(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     let cleanup = () => {};
@@ -13,6 +14,7 @@ function GlobeCanvas() {
     import('three').then((THREE) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
+      setReady(true);
 
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 1000);
@@ -93,7 +95,16 @@ function GlobeCanvas() {
     return () => cleanup();
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-80" aria-hidden="true" />;
+  return (
+    <>
+      {!ready && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="h-16 w-16 animate-pulse rounded-full bg-white/5" />
+        </div>
+      )}
+      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-80" aria-hidden="true" />
+    </>
+  );
 }
 
 export default function Hero() {
