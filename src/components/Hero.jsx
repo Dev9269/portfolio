@@ -197,6 +197,7 @@ export default function Hero() {
               <img
                 src={import.meta.env.BASE_URL + 'profile.png'}
                 alt={profile.name}
+                loading="lazy"
                 className="h-full w-full object-cover transition duration-500 hover:scale-105"
               />
             </div>
