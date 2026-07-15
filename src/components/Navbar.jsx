@@ -94,6 +94,7 @@ export default function Navbar() {
             onClick={() => setMenuOpen(!menuOpen)}
             className="flex items-center justify-center rounded-full border border-white/20 bg-white/5 p-2 text-white transition hover:border-accent hover:bg-white/10 md:hidden"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
           >
             {menuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
