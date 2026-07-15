@@ -50,12 +50,27 @@ export default function Skills() {
           </motion.div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-[0.75fr_1.25fr]">
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1" role="tablist" aria-label="Skill categories">
               {skillGroups.map((group) => (
                 <button
                   key={group.category}
                   type="button"
+                  role="tab"
+                  aria-selected={active === group.category}
                   onClick={() => setActive(group.category)}
+                  onKeyDown={(e) => {
+                    const idx = skillGroups.findIndex((g) => g.category === group.category);
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                      e.preventDefault();
+                      const next = (idx + 1) % skillGroups.length;
+                      setActive(skillGroups[next].category);
+                    }
+                    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                      e.preventDefault();
+                      const prev = (idx - 1 + skillGroups.length) % skillGroups.length;
+                      setActive(skillGroups[prev].category);
+                    }
+                  }}
                   className={`rounded-2xl border px-5 py-4 text-left transition ${
                     active === group.category
                       ? 'border-accent bg-accent/10 text-white'
@@ -70,6 +85,8 @@ export default function Skills() {
 
             <motion.div
               key={activeGroup.category}
+              role="tabpanel"
+              aria-label={activeGroup.category}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl sm:p-10"
