@@ -44,36 +44,43 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-120px' }}
           onSubmit={handleSubmit}
+          aria-label="Contact form"
           className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl sm:p-8"
         >
           <div className="grid gap-5 sm:grid-cols-2">
-            <label className="block text-sm font-medium text-white">Name
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-black/35 px-4 py-4 text-text-primary outline-none transition focus:border-accent"
-              placeholder="Your name"
-            />
-            </label>
+            <div>
+              <label htmlFor="contact-name" className="block text-sm font-medium text-white">Name</label>
+              <input
+                id="contact-name"
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                required
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-black/35 px-4 py-4 text-text-primary outline-none transition focus:border-accent"
+                placeholder="Your name"
+              />
+            </div>
 
-            <label className="block text-sm font-medium text-white">Email
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-black/35 px-4 py-4 text-text-primary outline-none transition focus:border-accent"
-              placeholder="your@email.com"
-            />
-            </label>
+            <div>
+              <label htmlFor="contact-email" className="block text-sm font-medium text-white">Email</label>
+              <input
+                id="contact-email"
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                className="mt-2 w-full rounded-2xl border border-white/10 bg-black/35 px-4 py-4 text-text-primary outline-none transition focus:border-accent"
+                placeholder="your@email.com"
+              />
+            </div>
           </div>
 
-          <label className="mt-5 block text-sm font-medium text-white">Message
+          <div className="mt-5">
+            <label htmlFor="contact-message" className="block text-sm font-medium text-white">Message</label>
             <textarea
+              id="contact-message"
               name="message"
               value={form.message}
               onChange={handleChange}
@@ -82,7 +89,7 @@ export default function Contact() {
               className="mt-2 w-full resize-none rounded-2xl border border-white/10 bg-black/35 px-4 py-4 text-text-primary outline-none transition focus:border-accent"
               placeholder="Tell me what you want to build..."
             />
-          </label>
+          </div>
 
           <motion.button
             whileHover={{ y: -2 }}
