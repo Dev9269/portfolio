@@ -23,7 +23,7 @@ export const profile = {
 export const stats = [
   { label: 'CTF Competitions', value: 5, suffix: '+' },
   { label: 'Hackathons', value: 3, suffix: '' },
-  { label: 'Projects Built', value: 6, suffix: '' },
+  { label: 'Projects Built', value: 7, suffix: '' },
   { label: 'Security Tools', value: 16, suffix: '' },
   { label: 'GitHub Contributions', value: 200, suffix: '+' },
   { label: 'CTF Score (Best)', value: 2713, suffix: '' },
@@ -104,8 +104,8 @@ export const projects = [
     title: 'Password Cracker Toolkit',
     tag: 'Security Tool',
     description:
-      'A modular password security toolkit for ethical research and CTF competitions. Supports dictionary, brute-force, hybrid, and rule-based attacks with GPU acceleration via Hashcat integration.',
-    stack: ['Python', 'Hashcat', 'Multi-threading', 'CLI', 'Unit Testing'],
+      'A modular password security toolkit for ethical research and CTF competitions. Supports mask, combinator, dictionary, brute-force, hybrid, and rule-based attacks with session persistence, multiprocessing, wordlist utilities, and GPU acceleration via Hashcat.',
+    stack: ['Python', 'Hashcat', 'Multiprocessing', 'CLI', 'Pytest'],
     impact: 'Password security analysis',
     gradient: 'from-orange-500/20 via-amber-500/10 to-transparent',
     image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&q=80&w=800',
@@ -113,10 +113,10 @@ export const projects = [
     liveUrl: 'https://github.com/Dev9269/password-cracker-toolkit',
     githubUrl: 'https://github.com/Dev9269/password-cracker-toolkit',
     highlights: [
-      'Auto hash detection (MD5, SHA1, SHA256)',
-      '4 attack modes + GPU acceleration',
-      '28 unit tests with 100% pass rate',
-      'Password strength analysis engine',
+      '50+ hash algorithms with auto-detection and salt support',
+      '6 attack modes + hashcat-compatible rule engine',
+      '127 unit tests with 100% pass rate',
+      'Session persistence, multiprocessing, JSON/CSV reporting',
     ],
   },
   {
