@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTopButton from './components/ScrollToTopButton';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import JourneyPage from './pages/JourneyPage';
@@ -10,6 +11,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import SkillsPage from './pages/SkillsPage';
 import InterestsPage from './pages/InterestsPage';
 import CertificationsPage from './pages/CertificationsPage';
+import BlogPage from './pages/BlogPage';
 import ContactPage from './pages/ContactPage';
 import AdminPage from './admin/AdminPage';
 
@@ -54,6 +56,7 @@ export default function App() {
       <ScrollToTop />
       <DevToolsBlocker />
       <Navbar />
+      <ScrollToTopButton />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<HomePage />} />
@@ -63,6 +66,7 @@ export default function App() {
           <Route path="/skills" element={<SkillsPage />} />
           <Route path="/interests" element={<InterestsPage />} />
           <Route path="/certifications" element={<CertificationsPage />} />
+          <Route path="/blog" element={<BlogPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/superadminxyz" element={<AdminPage />} />
           <Route path="/admin" element={<Navigate to="/" replace />} />

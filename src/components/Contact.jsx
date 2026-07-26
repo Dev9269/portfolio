@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Camera, GitBranch, Mail, Network, Send } from 'lucide-react';
 import { getContact } from '../data/liveData';
@@ -6,6 +6,12 @@ import { getContact } from '../data/liveData';
 export default function Contact() {
   const contact = getContact();
   const [form, setForm] = useState({ name: '', email: '', message: '' });
+
+  useEffect(() => {
+    if (window.LI && window.LI.profileBadge) {
+      try { window.LI.profileBadge(); } catch { /* ignore */ }
+    }
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -36,6 +42,11 @@ export default function Contact() {
             <a href={contact.github} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition hover:border-accent hover:text-white"><GitBranch size={18} /> GitHub</a>
             <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition hover:border-accent hover:text-white"><Network size={18} /> LinkedIn</a>
             <a href={contact.instagram} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-4 transition hover:border-accent hover:text-white"><Camera size={18} /> Instagram</a>
+          </div>
+          <div className="mt-6">
+            <div className="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="jainam-h-maru" data-version="v1">
+              <a class="badge-base__link LI-simple-link" href="https://in.linkedin.com/in/jainam-h-maru?trk=profile-badge">Jainam H Maru</a>
+            </div>
           </div>
         </motion.div>
 
