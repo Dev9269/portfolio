@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0e1116"/>
+      <stop offset="0.6" stop-color="#1a2029"/>
+      <stop offset="1" stop-color="#223044"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#g)"/>
+  <g opacity="0.05" stroke="#3ddc84">
+    <path d="M0 40h1200M0 80h1200M0 120h1200M0 160h1200M0 200h1200M0 240h1200M0 280h1200M0 320h1200M0 360h1200M40 0v400M80 0v400M120 0v400M160 0v400M200 0v400M240 0v400M280 0v400M320 0v400M360 0v400M400 0v400M440 0v400M480 0v400M520 0v400M560 0v400M600 0v400M640 0v400M680 0v400M720 0v400M760 0v400M800 0v400M840 0v400M880 0v400M920 0v400M960 0v400M1000 0v400M1040 0v400M1080 0v400M1120 0v400M1160 0v400" stroke-width="1"/>
+  </g>
+  <g font-family="'Courier New', monospace" fill="#3ddc84" opacity="0.7" font-size="16">
+    <text x="30" y="40">root@dev9269:~# uname -a</text>
+    <text x="30" y="70">Linux eduos 6.1.0 x86_64 GNU/Linux</text>
+    <text x="30" y="100">root@dev9269:~# whoami</text>
+    <text x="30" y="130">jainam</text>
+  </g>
+</svg>

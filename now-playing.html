@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #151515; color: #dcdcdc; font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .card { width: 100%; max-width: 340px; background: #1d1d1d; border-radius: 24px; padding: 20px; box-shadow: inset 0 1px 2px rgba(255,255,255,0.15), 0 20px 50px rgba(0,0,0,0.5); }
+  .head { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .head .live { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: #1DB954; text-transform: uppercase; }
+  .head .live .dot { width: 7px; height: 7px; border-radius: 50%; background: #1DB954; animation: pulse 1.6s infinite; }
+  .head .wait { font-size: 10px; color: #666; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+  .spinwrap { display: flex; justify-content: center; margin-bottom: 18px; }
+  .vinyl { width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, #333 0%, #111 55%, #000 100%); box-shadow: inset 0 10px 20px rgba(0,0,0,1), 0 1px 1px rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; position: relative; }
+  .vinyl img { width: 58px; height: 58px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.8); }
+  .vinyl .hole { position: absolute; width: 11px; height: 11px; border-radius: 50%; background: #1c1c1c; border: 1px solid #333; box-shadow: inset 0 2px 3px rgba(0,0,0,0.9); }
+  .vinyl .ring { position: absolute; width: 94px; height: 94px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.07); }
+  .vinyl .ring2 { position: absolute; width: 110px; height: 110px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.05); }
+  .playing .vinyl .art { animation: spin 3s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .name { font-size: 16px; font-weight: 700; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .artist { font-size: 12px; color: #9a9a9a; text-align: center; margin-top: 3px; font-weight: 600; }
+  .bar { height: 8px; background: #111; border-radius: 999px; margin: 16px 0 10px; overflow: hidden; box-shadow: inset 0 2px 6px rgba(0,0,0,0.8); }
+  .bar div { height: 100%; width: 0; background: #1DB954; border-radius: 999px; transition: width 1s linear; }
+  .times { display: flex; justify-content: space-between; font-size: 11px; color: #777; font-weight: 700; font-family: ui-monospace, monospace; }
+  .embed { margin-top: 12px; }
+  .embed iframe { width: 100%; height: 80px; border: 0; border-radius: 12px; }
+  .offline { text-align: center; color: #666; font-size: 12px; margin-top: 16px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="head">
+      <span class="live"><span class="dot" id="dot"></span><span id="liveLabel">Now Playing</span></span>
+    </div>
+    <div class="spinwrap"><div class="vinyl" id="vinyl">
+      <div class="ring"></div><div class="ring2"></div>
+      <img class="art" id="art" src="/img/placeholder.svg" alt="">
+      <div class="hole"></div>
+    </div></div>
+    <div class="name" id="name">Loading…</div>
+    <div class="artist" id="artist"></div>
+    <div class="bar"><div id="fill"></div></div>
+    <div class="times"><span id="cur">0:00</span><span id="dur">0:00</span></div>
+    <div class="embed"><iframe id="embed" title="Spotify player" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" src="about:blank"></iframe></div>
+    <div class="offline" id="offline" hidden>Can't reach Spotify — showing last known track</div>
+  </div>
+<script>
+  const $ = id => document.getElementById(id);
+  let progress = 0, lastStart = 0, lastIsPlaying = false, lastEmbed = "";
+  const fmt = ms => { const s = Math.floor(ms / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+  const embedSrc = url => {
+    const m = url.match(/\/track\/([A-Za-z0-9]+)/);
+    return m ? `https://open.spotify.com/embed/track/${m[1]}?utm_source=generator&theme=0` : "";
+  };
+  async function tick() {
+    try {
+      const r = await fetch("/now-playing", { cache: "no-store" });
+      const d = await r.json();
+      $("offline").hidden = true;
+      if (d.error) { $("name").textContent = "Nothing played yet"; $("artist").textContent = ""; return; }
+      $("name").textContent = d.name;
+      $("artist").textContent = d.artists.join(", ");
+      if (d.image) $("art").src = d.image;
+      const src = embedSrc(d.url);
+      if (src && src !== lastEmbed) { $("embed").src = src; lastEmbed = src; }
+      $("dur").textContent = fmt(d.duration_ms);
+      if (d.is_playing) {
+        lastStart = Date.now() - d.progress_ms;
+        lastIsPlaying = true;
+        $("vinyl").classList.add("playing");
+        $("dot").style.animationPlayState = "running";
+        $("liveLabel").textContent = "Now Playing";
+      } else {
+        lastIsPlaying = false;
+        $("vinyl").classList.remove("playing");
+        $("dot").style.animationPlayState = "paused";
+        $("liveLabel").textContent = d.source === "top" ? "Top Track" : "Last Played";
+      }
+    } catch { $("offline").hidden = false; }
+  }
+  setInterval(() => {
+    const p = lastIsPlaying ? Date.now() - lastStart : progress;
+    progress = p;
+    $("cur").textContent = fmt(p);
+    const dur = $("dur").textContent;
+    const ms = (() => { const m = dur.split(":")[0], s = dur.split(":")[1]; return (m * 60 + +s) * 1000; })();
+    $("fill").style.width = ms ? Math.min(100, p / ms * 100) + "%" : "0%";
+  }, 1000);
+  tick();
+  setInterval(tick, 15000);
+</script>
+</body>
+</html>
