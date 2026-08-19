@@ -43,36 +43,27 @@
     <div class="artist" id="artist"></div>
     <div class="bar"><div id="fill"></div></div>
     <div class="times"><span id="cur">0:00</span><span id="dur">0:00</span></div>
-    <div class="embed"><iframe id="embed" title="Spotify player" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" src="about:blank"></iframe></div>
-    <div class="offline" id="offline" hidden>Can't reach Spotify — showing last known track</div>
+    <div class="embed" hidden><iframe id="embed" title="Spotify player" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" src="about:blank"></iframe></div>
+    <div class="offline" id="offline" hidden>Can't reach Last.fm — check connection</div>
   </div>
 <script>
   const $ = id => document.getElementById(id);
-  let progress = 0, lastStart = 0, lastIsPlaying = false, lastEmbed = "";
   const fmt = ms => { const s = Math.floor(ms / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
-  const embedSrc = url => {
-    const m = url.match(/\/track\/([A-Za-z0-9]+)/);
-    return m ? `https://open.spotify.com/embed/track/${m[1]}?utm_source=generator&theme=0` : "";
-  };
+  let progress = 0, lastStart = 0, lastIsPlaying = false;
   async function tick() {
     try {
-      const r = await fetch("/now-playing", { cache: "no-store" });
-      const d = await r.json();
+      const j = await (await fetch("https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=Dev9269&api_key=7364cc7ddb2741d4dedbb4f0f8e42309&format=json&limit=1", { cache: "no-store" })).json();
+      const t = j?.recenttracks?.track?.[0];
+      const d = t?.name
+        ? { source: "lastfm", is_playing: t["@attr"]?.nowplaying === "true", name: t.name, artists: [t.artist?.["#text"] || ""], image: t.image?.filter(i => i["#text"]).slice(-1)[0]?.["#text"] || "", url: t.url || "" }
+        : { source: "lastfm", error: 1, message: "No scrobbles yet — play a song on Spotify" };
       $("offline").hidden = true;
-      if (d.error) { $("name").textContent = d.message || "Nothing played yet"; $("artist").textContent = ""; $("vinyl").classList.remove("playing"); $("liveLabel").textContent = d.source === "lastfm" ? "Last.fm" : "Spotify"; return; }
+      if (d.error) { $("name").textContent = d.message || "Nothing played yet"; $("artist").textContent = ""; $("vinyl").classList.remove("playing"); $("liveLabel").textContent = "Last.fm"; return; }
       $("name").textContent = d.name;
       $("artist").textContent = d.artists.join(", ");
       $("card").onclick = () => window.open("https://www.youtube.com/results?search_query=" + encodeURIComponent(d.name + " " + d.artists.join(" ")), "_blank");
       if (d.image) $("art").src = d.image;
-      if (d.source === "lastfm") {
-        $("embed").hidden = true;
-        $("dur").textContent = "--:--";
-      } else {
-        $("embed").hidden = false;
-        const src = embedSrc(d.url);
-        if (src && src !== lastEmbed) { $("embed").src = src; lastEmbed = src; }
-        $("dur").textContent = fmt(d.duration_ms);
-      }
+      $("dur").textContent = "--:--";
       if (d.is_playing) {
         lastStart = Date.now() - (d.progress_ms || 0);
         lastIsPlaying = true;
