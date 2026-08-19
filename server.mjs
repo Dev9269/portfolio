@@ -8,8 +8,16 @@ const redirectUri = `${baseUrl}/callback`;
 const mime = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg", ".woff2": "font/woff2", ".mp3": "audio/mpeg", ".json": "application/json" };
 const imgExt = [".png", ".jpg", ".jpeg", ".gif", ".webp"];
 const spotifyFile = join(process.cwd(), "spotify.json");
+const messagesFile = join(process.cwd(), "messages.json");
+const adminKey = process.env.ADMIN_KEY || "change-me";
 const scopes = "user-read-currently-playing user-read-recently-played user-read-playback-state";
 let spotifyCache = null, spotifyCachedAt = 0;
+
+async function readBody(req) {
+  let data = "";
+  for await (const chunk of req) data += chunk;
+  return data;
+}
 
 async function spotifyToken() {
   const file = { client_id: process.env.SPOTIFY_CLIENT_ID, client_secret: process.env.SPOTIFY_CLIENT_SECRET };
@@ -85,6 +93,36 @@ async function spotifyNowPlaying() {
 
 http.createServer(async (req, res) => {
   const url = req.url.split("?")[0];
+  if (url === "/api/contact" && req.method === "POST") {
+    try {
+      const b = JSON.parse((await readBody(req)) || "{}");
+      const name = String(b.name || "").trim().slice(0, 200);
+      const email = String(b.email || "").trim().slice(0, 200);
+      const message = String(b.message || "").trim().slice(0, 5000);
+      if (!name || !email || !message || !/^\S+@\S+\.\S+$/.test(email)) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Please fill name, a valid email and a message" }));
+        return;
+      }
+      let list = [];
+      try { list = JSON.parse(await readFile(messagesFile, "utf8")); } catch { }
+      list.push({ id: Date.now(), at: new Date().toISOString(), ip: req.socket.remoteAddress, name, email, message });
+      await writeFile(messagesFile, JSON.stringify(list, null, 2));
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ ok: true }));
+      return;
+    } catch (e) {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "Bad request" }));
+      return;
+    }
+  }
+  if (url === "/api/contact" && req.method === "GET") {
+    if (new URL(req.url, baseUrl).searchParams.get("key") !== adminKey) { res.writeHead(403); res.end("forbidden"); return; }
+    try { res.writeHead(200, { "Content-Type": "application/json" }); res.end(await readFile(messagesFile, "utf8")); }
+    catch { res.writeHead(200, { "Content-Type": "application/json" }); res.end("[]"); }
+    return;
+  }
   if (url === "/now-playing") {
     if (Date.now() - spotifyCachedAt > 30000) {
       spotifyCache = (await lastfmNowPlaying()) ?? await spotifyNowPlaying();

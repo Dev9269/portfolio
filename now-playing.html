@@ -50,13 +50,19 @@
   const $ = id => document.getElementById(id);
   const fmt = ms => { const s = Math.floor(ms / 1000); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
   let progress = 0, lastStart = 0, lastIsPlaying = false;
+  async function fetchNowPlaying() {
+    try {
+      const r = await fetch("/now-playing", { cache: "no-store" });
+      if (r.ok) { const d = await r.json(); if (!d.error) return d; }
+    } catch { }
+    const j = await (await fetch("https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=Dev9269&api_key=7364cc7ddb2741d4dedbb4f0f8e42309&format=json&limit=1", { cache: "no-store" })).json();
+    const t = j?.recenttracks?.track?.[0];
+    if (!t?.name) return { source: "lastfm", error: 1, message: "No scrobbles yet - play a song on Spotify" };
+    return { source: "lastfm", is_playing: t["@attr"]?.nowplaying === "true", name: t.name, artists: [t.artist?.["#text"] || ""], image: t.image?.filter(i => i["#text"]).slice(-1)[0]?.["#text"] || "", url: t.url || "" };
+  }
   async function tick() {
     try {
-      const j = await (await fetch("https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=Dev9269&api_key=7364cc7ddb2741d4dedbb4f0f8e42309&format=json&limit=1", { cache: "no-store" })).json();
-      const t = j?.recenttracks?.track?.[0];
-      const d = t?.name
-        ? { source: "lastfm", is_playing: t["@attr"]?.nowplaying === "true", name: t.name, artists: [t.artist?.["#text"] || ""], image: t.image?.filter(i => i["#text"]).slice(-1)[0]?.["#text"] || "", url: t.url || "" }
-        : { source: "lastfm", error: 1, message: "No scrobbles yet — play a song on Spotify" };
+      const d = await fetchNowPlaying();
       $("offline").hidden = true;
       if (d.error) { $("name").textContent = d.message || "Nothing played yet"; $("artist").textContent = ""; $("vinyl").classList.remove("playing"); $("liveLabel").textContent = "Last.fm"; return; }
       $("name").textContent = d.name;
