@@ -59,15 +59,21 @@
       const r = await fetch("/now-playing", { cache: "no-store" });
       const d = await r.json();
       $("offline").hidden = true;
-      if (d.error) { $("name").textContent = "Nothing played yet"; $("artist").textContent = ""; return; }
+      if (d.error) { $("name").textContent = d.message || "Nothing played yet"; $("artist").textContent = ""; $("vinyl").classList.remove("playing"); $("liveLabel").textContent = d.source === "lastfm" ? "Last.fm" : "Spotify"; return; }
       $("name").textContent = d.name;
       $("artist").textContent = d.artists.join(", ");
       if (d.image) $("art").src = d.image;
-      const src = embedSrc(d.url);
-      if (src && src !== lastEmbed) { $("embed").src = src; lastEmbed = src; }
-      $("dur").textContent = fmt(d.duration_ms);
+      if (d.source === "lastfm") {
+        $("embed").hidden = true;
+        $("dur").textContent = "--:--";
+      } else {
+        $("embed").hidden = false;
+        const src = embedSrc(d.url);
+        if (src && src !== lastEmbed) { $("embed").src = src; lastEmbed = src; }
+        $("dur").textContent = fmt(d.duration_ms);
+      }
       if (d.is_playing) {
-        lastStart = Date.now() - d.progress_ms;
+        lastStart = Date.now() - (d.progress_ms || 0);
         lastIsPlaying = true;
         $("vinyl").classList.add("playing");
         $("dot").style.animationPlayState = "running";

@@ -31,9 +31,25 @@ async function refreshAccessToken(cfg) {
   return true;
 }
 
+async function lastfmNowPlaying() {
+  const cfg = await spotifyToken();
+  if (!cfg?.lastfm_key || !cfg?.lastfm_user) return null;
+  const r = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(cfg.lastfm_user)}&api_key=${cfg.lastfm_key}&format=json&limit=1`);
+  const t = (await r.json())?.recenttracks?.track?.[0];
+  if (!t?.name) return { source: "lastfm", error: "nothing", message: "No scrobbles yet — play a song on Spotify" };
+  return {
+    source: "lastfm",
+    is_playing: t["@attr"]?.nowplaying === "true",
+    name: t.name,
+    artists: [t.artist?.["#text"] || ""],
+    image: t.image?.filter(i => i["#text"]).slice(-1)[0]?.["#text"] || "",
+    url: t.url || "",
+  };
+}
+
 async function spotifyNowPlaying() {
   const cfg = await spotifyToken();
-  if (!cfg?.access_token) return { error: "no_token" };
+  if (!cfg?.access_token) return { error: "no_token", message: "No Spotify token — visit /login to connect" };
   const call = async (url) => {
     const r = await fetch(url, { headers: { Authorization: `Bearer ${cfg.access_token}` } });
     return { status: r.status, body: await r.json().catch(() => null) };
@@ -42,6 +58,8 @@ async function spotifyNowPlaying() {
   if (status === 401 && await refreshAccessToken(cfg)) {
     ({ status, body } = await call("https://api.spotify.com/v1/me/player/currently-playing"));
   }
+  if (status === 401) return { error: "expired", message: "Spotify token expired — visit /login to reconnect" };
+  if (status === 429) return { error: "rate_limited", message: "Spotify rate limited — retrying shortly" };
   if (status === 204 || !body?.item) {
     const r = await call("https://api.spotify.com/v1/me/player/recently-played?limit=1");
     const item = r.body?.items?.[0]?.track;
@@ -69,7 +87,7 @@ http.createServer(async (req, res) => {
   const url = req.url.split("?")[0];
   if (url === "/now-playing") {
     if (Date.now() - spotifyCachedAt > 30000) {
-      spotifyCache = await spotifyNowPlaying();
+      spotifyCache = (await lastfmNowPlaying()) ?? await spotifyNowPlaying();
       spotifyCachedAt = Date.now();
     }
     res.writeHead(200, { "Content-Type": "application/json", "Cache-Control": "no-store" });
