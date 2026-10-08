@@ -25,7 +25,7 @@ export const stats = [
   { label: 'Hackathons', value: 3, suffix: '' },
   { label: 'Projects Built', value: 6, suffix: '' },
   { label: 'Security Tools', value: 16, suffix: '' },
-  { label: 'GitHub Contributions', value: 200, suffix: '+' },
+  { label: 'GitHub Contributions', value: 8700, suffix: '+' },
   { label: 'CTF Score (Best)', value: 2713, suffix: '' },
 ];
 
@@ -44,6 +44,8 @@ export const journey = [
   { year: '2024', title: 'NHAI Hackathon', description: 'Built Smart Toilet Monitoring Platform at national-level innovation hackathon.' },
   { year: '2025', title: 'Built Educational OS', description: 'Debian-based OS with labs, exams, and developer tools.' },
   { year: '2025', title: 'AI Fraud Detection', description: 'Built ML-powered insider threat detection for banking environments.' },
+  { year: '2026', title: 'DarkForce Threat Intel', description: 'Built DarkForce for SIH (NTRO) — dark web threat actor de-anonymization with entity resolution and AI stylometry.' },
+  { year: '2026', title: 'VAJRA OSINT', description: 'Shipped VAJRA Layer 3 at SIH 2026 — a self-updating OSINT aggregator with full source attribution.' },
   { year: '2026', title: 'Future Startup Vision', description: 'Entrepreneurial path toward innovative security and education solutions.' },
 ];
 
@@ -173,6 +175,82 @@ export const projects = [
       'Real-time infrastructure monitoring',
       'Maintenance alert system',
       'Data-driven decision dashboards',
+    ],
+  },
+  {
+    title: 'DarkForce',
+    tag: 'Threat Intelligence',
+    description:
+      'Dark web threat actor de-anonymization platform built for the SIH (NTRO) problem statement. Collects dark web footprints, detects hidden-service misconfigurations to locate origin infrastructure, and attributes rebranded identities across marketplaces.',
+    stack: ['Python', 'FastAPI', 'React', 'Cytoscape.js', 'PostgreSQL', 'Tor'],
+    impact: 'Dark web OSINT',
+    gradient: 'from-fuchsia-500/20 via-pink-500/10 to-transparent',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800',
+    initial: 'D',
+    liveUrl: 'https://github.com/Dev9269/darkforce',
+    githubUrl: 'https://github.com/Dev9269/darkforce',
+    highlights: [
+      'Hidden-service misconfiguration detection',
+      'Entity resolution graph across PGP, BTC/XMR and onion links',
+      'AI stylometry for rebranded persona attribution',
+      'Dashboard with CSV, JSON and PDF export',
+    ],
+  },
+  {
+    title: 'Malware Detector',
+    tag: 'AI / ML Security',
+    description:
+      'AI-powered PE malware detector that classifies an uploaded binary in seconds. Combines static analysis and YARA rules with a Random Forest trained on the EMBER dataset, and explains every prediction with SHAP.',
+    stack: ['Python', 'Machine Learning', 'YARA', 'EMBER', 'SHAP', 'Docker'],
+    impact: 'Malware classification',
+    gradient: 'from-red-500/20 via-rose-500/10 to-transparent',
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800',
+    initial: 'M',
+    liveUrl: 'https://malware-detector-production.up.railway.app',
+    githubUrl: 'https://github.com/Dev9269/malware-detector',
+    highlights: [
+      'EMBER 2381-feature Random Forest model',
+      'Static analysis plus YARA rule pipeline',
+      'SHAP explainability for every verdict',
+      'Live deployment with CI and test suite',
+    ],
+  },
+  {
+    title: 'VAJRA OSINT',
+    tag: 'OSINT Platform',
+    description:
+      'VAJRA Layer 3 — a self-updating OSINT aggregator built for SIH 2026. Pulls records from Wikipedia, news RSS feeds and government portals, with full source attribution and structured fields on every entry.',
+    stack: ['Python', 'OSINT', 'Named Entity Recognition', 'Data Pipelines', 'RSS'],
+    impact: 'Intelligence aggregation',
+    gradient: 'from-sky-500/20 via-blue-500/10 to-transparent',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
+    initial: 'V',
+    liveUrl: 'https://github.com/Dev9269/vajra-osint',
+    githubUrl: 'https://github.com/Dev9269/vajra-osint',
+    highlights: [
+      'Self-updating multi-source ingestion',
+      'Structured records with full source attribution',
+      'Crime type, status and location normalization',
+      'Missing fields left null — never fabricated',
+    ],
+  },
+  {
+    title: 'EduOS',
+    tag: 'Operating System',
+    description:
+      'A Unix/FreeBSD-based educational operating system for engineering colleges, integrating secure examinations, learning tools, development environments, cyber labs and centralized campus administration.',
+    stack: ['FreeBSD', 'Python', 'Linux', 'System Design', 'Security'],
+    impact: 'Education infrastructure',
+    gradient: 'from-lime-500/20 via-green-500/10 to-transparent',
+    image: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&q=80&w=800',
+    initial: 'E',
+    liveUrl: 'https://github.com/Dev9269/eduos',
+    githubUrl: 'https://github.com/Dev9269/eduos',
+    highlights: [
+      'Secure examination mode',
+      'Bundled cyber labs and developer tooling',
+      'Centralized campus administration',
+      '40 passing tests with CI',
     ],
   },
 ];
