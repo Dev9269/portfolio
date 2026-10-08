@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 const navLinks = [
   { label: 'Home', path: '/' },
@@ -98,6 +99,7 @@ export default function Navbar() {
           >
             Start a conversation
           </Link>
+          <ThemeToggle />
           <button
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}

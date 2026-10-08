@@ -1,7 +1,29 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+    <head>
+      <script>
+        (function () {
+          var stored = null;
+          try {
+            stored = localStorage.getItem('theme');
+          } catch (err) {
+            stored = null;
+          }
+          var prefersLight =
+            window.matchMedia &&
+            window.matchMedia('(prefers-color-scheme: light)').matches;
+          var theme =
+            stored === 'light' || stored === 'dark'
+              ? stored
+              : prefersLight
+                ? 'light'
+                : 'dark';
+          document.documentElement.setAttribute('data-theme', theme);
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', theme === 'light' ? '#f4f4f5' : '#050505');
+        })();
+      </script>
+      <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="preload" href="favicon.svg" as="image" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="profile.png" />
