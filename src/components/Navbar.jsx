@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
@@ -24,6 +24,7 @@ const mobileLinks = [
 export default function Navbar() {
   const { pathname } = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef(null);
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -33,8 +34,24 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', handleKey);
   }, []);
 
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+
+    const handlePointerDown = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => document.removeEventListener('pointerdown', handlePointerDown);
+  }, [menuOpen]);
+
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-dark/70 backdrop-blur-2xl">
+    <nav
+      ref={navRef}
+      className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-dark/70 backdrop-blur-2xl"
+    >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: -8 }}
