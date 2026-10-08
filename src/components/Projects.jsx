@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ExternalLink, GitBranch, Check } from 'lucide-react';
@@ -5,6 +6,19 @@ import { getProjects } from '../data/liveData';
 
 export default function Projects() {
   const projects = getProjects();
+  const [activeTech, setActiveTech] = useState('All');
+
+  const techs = useMemo(() => {
+    const set = new Set();
+    projects.forEach((project) => (project.stack || []).forEach((item) => set.add(item)));
+    return ['All', ...Array.from(set).sort((a, b) => a.localeCompare(b))];
+  }, [projects]);
+
+  const visibleProjects = useMemo(() => {
+    if (activeTech === 'All') return projects;
+    return projects.filter((project) => (project.stack || []).includes(activeTech));
+  }, [projects, activeTech]);
+
   return (
     <section id="projects" className="px-5 py-28 sm:px-8">
       <div className="mx-auto max-w-7xl">
@@ -21,6 +35,39 @@ export default function Projects() {
           </p>
         </motion.div>
 
+        {projects.length > 0 && techs.length > 1 && (
+          <div className="mb-10">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm uppercase tracking-[0.28em] text-text-secondary">
+                Filter by stack
+              </p>
+              <p className="text-sm text-text-secondary" aria-live="polite">
+                {visibleProjects.length} of {projects.length} projects
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {techs.map((tech) => {
+                const isActive = activeTech === tech;
+                return (
+                  <button
+                    key={tech}
+                    type="button"
+                    onClick={() => setActiveTech(tech)}
+                    aria-pressed={isActive}
+                    className={`rounded-full border px-4 py-2 text-sm transition ${
+                      isActive
+                        ? 'border-accent bg-accent/15 text-accent'
+                        : 'border-white/10 bg-white/[0.04] text-text-secondary hover:border-white/25 hover:text-white'
+                    }`}
+                  >
+                    {tech}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {projects.length === 0 ? (
           <div className="flex min-h-[300px] items-center justify-center rounded-[2.25rem] border border-dashed border-white/10 bg-white/[0.015]">
             <div className="text-center">
@@ -29,9 +76,25 @@ export default function Projects() {
               <p className="mt-1 text-sm text-text-secondary">Projects will appear here once added.</p>
             </div>
           </div>
+        ) : visibleProjects.length === 0 ? (
+          <div className="flex min-h-[300px] items-center justify-center rounded-[2.25rem] border border-dashed border-white/10 bg-white/[0.015]">
+            <div className="text-center">
+              <p className="text-4xl">🔍</p>
+              <p className="mt-4 text-lg text-text-secondary">
+                No projects use {activeTech}.
+              </p>
+              <button
+                type="button"
+                onClick={() => setActiveTech('All')}
+                className="mt-4 rounded-full border border-white/15 px-5 py-2 text-sm text-white transition hover:border-accent hover:bg-white/5"
+              >
+                Show all projects
+              </button>
+            </div>
+          </div>
         ) : (
         <div className="space-y-8">
-          {projects.map((project, i) => (
+          {visibleProjects.map((project, i) => (
             <motion.article
               key={project.title}
               initial={{ opacity: 0, y: 36 }}
