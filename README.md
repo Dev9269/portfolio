@@ -202,7 +202,7 @@ node swap.js assets/index-vCZ8uuPF.js pairs1.js   # ... etc (pairs1–13)
 - GitHub: [@Dev9269](https://github.com/Dev9269)
 - LinkedIn: [jainam-h-maru](https://www.linkedin.com/in/jainam-h-maru)
 - Instagram: [@jainammaru_](https://www.instagram.com/jainammaru_)
-- Resume: https://jainamhmaru.vercel.app/resume.html
+- Resume: https://dev9269.github.io/portfolio/
 - Gym project: https://dev9269.github.io/
 
 ---
